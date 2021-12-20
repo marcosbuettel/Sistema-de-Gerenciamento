@@ -1,0 +1,82 @@
+[16-Sep-2021 14:19:56 America/Fortaleza] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home1/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home1/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home1/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[17-Sep-2021 16:40:20 America/Fortaleza] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home1/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home1/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home1/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 20:52:31 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 20:52:32 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 20:55:39 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 20:56:02 UTC] PHP Parse error:  syntax error, unexpected 'isevenpl_marcos' (T_STRING), expecting ')' in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelBancoDeDados.php on line 4
+[09-Nov-2021 20:56:07 UTC] PHP Parse error:  syntax error, unexpected 'isevenpl_marcos' (T_STRING), expecting ')' in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelBancoDeDados.php on line 4
+[09-Nov-2021 20:56:09 UTC] PHP Parse error:  syntax error, unexpected 'isevenpl_marcos' (T_STRING), expecting ')' in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelBancoDeDados.php on line 4
+[09-Nov-2021 20:56:11 UTC] PHP Parse error:  syntax error, unexpected 'isevenpl_marcos' (T_STRING), expecting ')' in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelBancoDeDados.php on line 4
+[09-Nov-2021 20:56:51 UTC] PHP Parse error:  syntax error, unexpected 'isevenpl_marcos' (T_STRING), expecting ')' in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelBancoDeDados.php on line 4
+[09-Nov-2021 20:56:53 UTC] PHP Parse error:  syntax error, unexpected 'isevenpl_marcos' (T_STRING), expecting ')' in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelBancoDeDados.php on line 4
+[09-Nov-2021 20:57:31 UTC] PHP Parse error:  syntax error, unexpected 'isevenpl_marcos' (T_STRING), expecting ')' in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelBancoDeDados.php on line 4
+[09-Nov-2021 20:58:32 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 20:58:54 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 20:59:10 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 20:59:10 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 20:59:30 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 21:01:03 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 21:01:05 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 21:02:31 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 21:03:15 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2
+[09-Nov-2021 21:03:58 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php:2
+Stack trace:
+#0 /home/isevenplay/public_html/sistemacalendario/index.php(4): include_once()
+#1 {main}
+  thrown in /home/isevenplay/public_html/sistemacalendario/MVC/Model/modelLogin.php on line 2

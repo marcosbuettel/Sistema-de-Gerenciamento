@@ -1,0 +1,1276 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Lato', sans-serif;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+}
+
+details summary::-webkit-details-marker {
+  display:none;
+}
+
+details > summary:first-of-type {
+    list-style-type: none;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 10px;
+    background: #F4F4F4;
+}
+::-webkit-scrollbar-thumb {
+    background: #2D323E;
+}
+
+body{
+	background-color: #F5F5F5;
+}
+
+a{
+	text-decoration: none;
+	color: #222;
+}
+
+ul{
+	display: flex;
+}
+
+li{
+	color: #222;
+  	list-style-type: none;
+  	margin: 0 30px;
+}
+
+.separador{
+	z-index: 999;
+	padding: 40px 0;
+	width: 90%;
+	margin-left: 100px;
+	padding-top: 100px;
+}
+
+.separador-preto{
+	width: 100%;
+	height: 1px;
+	background-color: black;
+	margin: 5px 0;
+}
+
+.container{
+	max-width: 1280px;
+	margin:0 auto;
+}
+
+.nav-left{
+	display: none;
+	padding: 10px 20px;
+	background-color: #2D323E;
+	height: 1000px;
+	position: fixed;
+	font-size: 18px;
+	color: #8C8F95!important;
+	z-index: 9999;
+	z-index: 999;
+	margin-top: 70px;
+}
+
+.nav-left i{
+	cursor: pointer;
+}
+
+.nav-left-mobile{
+	display: none;
+}
+
+.nav-left-mini{
+	padding: 10px 20px;
+	background-color: #2D323E;
+	height: 1000px;
+	position: fixed;
+	font-size: 18px;
+	color: #8C8F95!important;
+	z-index: 9999;
+	color: white;
+	margin-top: 70px;
+}
+
+.nav-left-mini i{
+	color: white;
+	cursor: pointer;
+}
+
+.info-ico-menu{
+	display: none;
+	background-color: black;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 5px;
+	position: absolute;
+	width: 120px;
+	text-align: center;
+}
+
+/**************************************************************
+					BARRA DE NOTIFICAÇÕES
+***************************************************************/
+
+.nav-superior{
+	background-color: #474D5B;
+	width: 100%;
+	height: 70px;
+	position: fixed;
+	z-index: 9999999;
+}
+
+.nav-superior > img{
+	padding: 20px;
+	width: 150px;
+}
+
+.img-sino{
+	display: flex;
+	color: white;
+	position: absolute;
+	right: 40px;
+	top: 16px;
+}
+
+.img-sino p{
+	font-size: 16px;
+	padding-top: 10px;
+	padding-right: 40px;
+}
+
+.img-sino img{
+	width: 40px;
+	height: auto;
+	text-align: center;
+	margin-bottom: auto;
+	cursor: pointer;
+}
+
+.aviso-notificacao{
+	position: absolute;
+	background-color: red;
+	color: white;
+	border-radius: 50%;
+	padding-top: 3px;
+	padding-left: 7px;
+	padding-bottom: 5px;
+	padding-right: 9px;
+	right: -5px;
+	top: -10px;
+	cursor: pointer;
+}
+
+.barra-notificacao{
+	background-color: white;
+	width: 300px;
+	max-height: 300px;
+	position: absolute;
+	-webkit-box-shadow: 10px 10px 15px -8px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 15px -8px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 15px -8px rgba(0,0,0,0.75);	
+	display: none;
+	right: 0;
+	overflow-y: scroll;
+	top: 40px;
+}
+
+.notificacao{
+	border-bottom: 1px solid black;
+	padding: 15px 20px;
+	color: black;
+	cursor: pointer;
+}
+
+.notificacao:hover{
+	background-color: #EBEBF5!important;
+}
+
+.notificacao h4{
+	margin: 0!important;
+}
+
+/**************************************************************
+					BARRA DE NOTIFICAÇÕES
+***************************************************************/
+
+.nav-left > img{
+	width: 200px;
+	margin-bottom: -20px;
+	margin-top: 20px;
+}
+
+.nav-left-mobile img{
+	width: 200px;
+	margin-bottom: 100px;
+	margin-top: 20px;
+}
+
+.nav-left a, .nav-left-mobile a{
+	color: #8C8F95!important
+}
+
+.nav-left h2, .nav-left h2{
+	font-size: 20px;
+	margin: 40px 0;
+}
+
+.nav-left i, .nav-left i{
+	margin-right: 10px ;
+}
+
+/********************************************************************
+						NAV PRINCIPAL
+********************************************************************/
+
+.nav-painel{
+	height: 1px;
+	border-bottom: 2px solid black;
+	z-index: 999;
+	position: relative;
+	margin-bottom: -10px;
+}
+
+.nav-painel ul{
+	display: flex;
+	justify-content: space-between;
+}
+
+.nav-painel li:first-child{
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.nav-painel a{
+	color: white;
+	padding: 10px 15px;
+	border-radius: 10px;
+	background-color: #474D5B;
+}
+
+.lista-nav-painel{
+	display: flex;
+}
+
+.lista-nav-painel li{
+	font-size: 16px!important;
+	font-weight: normal!important;
+	margin: 0 10px;
+}
+
+/********************************************************************
+						OPCOES-CLIENTES-WRAPPER
+********************************************************************/
+.opcoes-clientes-wrapper{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.opcoes-clientes-box{
+	width: 200px;
+	height: 170px;
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	cursor: pointer;
+	color: white;
+	border-radius: 2px;
+	text-align: center;
+	padding: 15px;
+	margin: 10px 20px;
+}
+
+.opcoes-clientes-box img{
+	width: 70px;
+	margin-bottom: 10px;
+}
+
+.opcoes-clientes-box h2{
+	font-size: 20px;
+}
+
+
+
+
+/********************************************************************
+						CLIENTES-BOX-WRAPPER
+********************************************************************/
+.tabela-box-wrapper{
+	padding: 5px;
+}
+
+.tabela-box{
+	margin: 20px 0;	
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+}
+
+.tabela-box-wrapper tr{
+	border: 1px solid white;
+}
+
+.clientes-box-wrapper{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.calendario-box-wrapper{
+	overflow-x: scroll;
+	max-height: 400px;
+}
+
+.calendarios-visao-clientes{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.calendario-cliente-info img{
+	width: 40px;
+	position: absolute;
+	top: -20px;
+	left: 10px;
+}
+
+.calendario-cliente-info{
+	width: 200px;
+	height: 110px;
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	background-color: white;
+	position: relative;
+	margin-right: 40px;
+	cursor: pointer;
+	padding-top: 23px;
+	margin-bottom: 40px;
+}
+
+.calendario-cliente-info:hover{
+	background-color: #F3F3FF; 
+}
+
+.mes-posts-calendario{
+	text-align: center;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.mes-posts-calendario h2{
+	font-size: 20px;
+}
+
+.mes-posts-calendario h3{
+	font-size: 16px;
+	padding-top: 4px;
+	width: 100%;
+	border-top: 1px solid #E8E8E8;
+	text-align: center;
+	position: absolute;
+	bottom: 4px;
+}
+
+.clientes-box{
+	text-align: center;
+	padding: 10px 0;
+	background-color: white;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	width: 200px;
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+}
+
+.info-clientes-calendarios{
+	text-align: left;
+	padding: 5px;
+	background-color: #FAFAFA;
+	border-top: 1px solid #EEEEEE;
+}
+
+.botao-cadastro-cliente{
+	text-align: center;
+}
+
+.botao-cadastro-cliente a{
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+	background-color: #01BC00;
+}
+
+/********************************************************************
+						PÁGINA GERENCIAR CLIENTES
+********************************************************************/
+
+th, td{
+	padding: 15px 25px;
+	text-align: center;
+}
+
+table{ 
+	border-collapse: collapse; 
+}
+
+th:nth-child(2), td:nth-child(2),th:nth-child(3), td:nth-child(3),th:nth-child(1), td:nth-child(1){
+	min-width: 290px!important;
+}
+
+th:nth-child(1), td:nth-child(1){
+	min-width: 210px!important;
+}
+
+td:nth-child(1){
+	text-align: center;
+}
+
+tr:nth-child(2n){
+	background-color: white;
+}
+
+.janela-modal-tarefas tr:nth-child(2n){
+	background-color: #F3F3F3;
+}
+
+.botao-editaExclui-cliente{
+	position: relative;
+}
+
+.botao-editaExclui-cliente i{
+	margin: 0 10px;
+	cursor: pointer;
+}
+
+.botao-editaExclui-cliente2 i{
+	margin: 0 10px;
+	cursor: pointer;
+}
+
+.primeira-coluna-tabela{
+	padding-top: 10px;
+}
+
+.icones-acao{
+	background-color: #2A2A2A;
+	color: white;
+	font-size: 12px;
+	padding: 5px 10px; 
+	display: none;
+	position: absolute;
+	margin-top: 10px;
+}
+
+/*.botao-editaExclui-cliente2 a:nth-child(1){
+	background-color: #F3E400;
+	color: white;
+	padding: 10px;
+	border-radius: 5px; 
+	margin-right: 10px;
+}
+
+.botao-editaExclui-cliente2 a:nth-child(2){
+	background-color: #EA0303;
+	color: white;
+	padding: 10px;
+	border-radius: 5px; 
+}
+
+.botao-editaExclui-cliente a:nth-child(2){
+	background-color: #F3E400;
+	color: white;
+	padding: 10px;
+	border-radius: 5px; 
+	margin-right: 10px;
+}
+
+.botao-editaExclui-cliente a:nth-child(3){
+	background-color: #EA0303;
+	color: white;
+	padding: 10px;
+	border-radius: 5px; 
+}
+
+.botao-editaExclui-cliente a:nth-child(1){
+	background-color: #309BE5;
+	color: white;
+	padding: 10px;
+	border-radius: 5px; 
+	margin-right: 10px;
+}
+
+.botao-pagina-editar a:nth-child(1){
+	background-color: #F3E400;
+}
+
+.botao-pagina-editar a:nth-child(2){
+	background-color: #EA0303;
+}*/
+
+/********************************************************************
+						JANELA MODAL DE CADASTRO
+********************************************************************/
+
+.janela-modal-cadastro{
+	width: 500px;
+	position: absolute;
+	z-index: 9999999;
+	background-color: white; 
+	display: none;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	top: 30px;
+	border-radius: 10px;
+}
+
+.janela-modal-cadastro-tarefa{
+	width: 500px;
+	position: absolute;
+	z-index: 9999999;
+	background-color: white; 
+	display: none;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	top: 30px;
+	border-radius: 10px;
+}
+
+.janela-modal-editar{
+	width: 350px;
+	position: absolute;
+	z-index: 9999999999;
+	background-color: white;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	top: 100px;
+	border-radius: 10px;
+}
+
+.janela-modal-editar-calendario{
+	width: 500px;
+	position: absolute;
+	z-index: 9999999;
+	background-color: white; 
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	top: 30px;
+	border-radius: 10px;
+}
+
+.janela-modal-editar-calendario img{
+	width: 30px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	color: red;
+	cursor: pointer;
+}
+
+.janela-editar-usuario{
+	width: 500px;
+	position: absolute;
+	z-index: 9999999;
+	background-color: white; 
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	top: 100px;
+	border-radius: 10px;
+}
+
+.janela-editar-usuario img{
+	width: 30px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	color: red;
+	cursor: pointer;
+}
+
+.janela-modal-cadastro img{
+	width: 30px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	color: red;
+	cursor: pointer;
+}
+
+.janela-modal-cadastro-tarefa img{
+	width: 30px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	color: red;
+	cursor: pointer;
+}
+
+
+.janela-modal-editar img{
+	width: 30px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	color: red;
+	cursor: pointer;
+}
+
+.header-janela-modal{
+	font-size: 12px;
+	padding: 10px;
+	color: white;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background-color: #2D323E;
+}
+
+.info-cadastro-cliente{
+	font-size: 30px;
+	text-align: center;
+}
+
+/*.info-cadastro-cliente input{
+	width: 300px;
+	font-size: 18px;
+	padding: 10px;
+	margin: 20px 0;
+}*/
+
+.info-cadastro-cliente button{
+	background-color: #01BC00;
+	border: none;
+	color: white;
+	font-size: 20px;
+	padding: 10px;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.info-cadastro-usuario{
+	font-size: 18px!important;
+	font-weight: bold;
+}
+
+/********************************************************************
+						TAREFAS
+********************************************************************/
+
+.header-tarefas{
+	display: flex;
+	justify-content: space-between;
+	background-color: white;
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	padding: 15px 40px;
+	cursor: pointer;
+}
+
+.header-tarefas h2{
+	margin-bottom: 5px;
+	font-size: 20px;
+}
+
+.tarefas-wrapper{
+	border:1px solid #BEBEBE;
+	border-top: none;
+	border-bottom: 1px solid #BEBEBE;
+	display: none;
+	overflow-x: scroll;
+}
+
+.tarefas-row{
+	display: flex;
+	justify-content: space-between;
+}
+
+.icone-status-tarefa{
+	background-color: black;
+	color: white;
+	padding: 4px;
+	font-weight: bold;
+	font-size: 12px;
+	position: absolute;
+	display: none;
+}
+
+.enviado-producao{
+	display: none;
+}
+
+.filtro-tipo-tarefas{
+	display: flex;
+	position: relative;
+	bottom: -10px;
+}
+
+.filtro-tipo-tarefas p{
+	font-weight: bold;
+}
+
+.filtro-tipo-tarefas li{
+	font-size: 14px!important;
+	font-weight: normal!important;
+	margin-top: 2px;
+}
+
+.filtro-tipo-tarefas input{
+	position: relative;
+	top: 2px;
+	right: 5px;
+}
+
+/********************************************************************
+						QUADRO DE TAREFAS
+********************************************************************/
+.quadro-de-tarefas{
+	display: flex;
+	overflow-x: scroll;
+	font-size: 10px;
+	margin-top: -40px;
+}
+
+.quadro-de-tarefas p{
+	margin-top: 10px;
+}
+
+.tarefas-a-fazer{
+	border: 1px solid black;
+	min-width: 200px;
+	margin-right: 5px;
+}
+
+.header-tarefas-a-fazer{
+	background-color: #2D323E;
+	color: white;
+	padding: 10px;	
+	text-align: center;
+}
+
+.tarefas-a-fazer-box-wrapper{
+	padding: 10px;
+}
+
+.tarefas-a-fazer-box{
+	position: relative;
+	margin: 10px 0;
+	padding: 10px;
+	background-color: white;
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+}
+
+.tarefas-a-fazer-box i{
+	font-size: 16px;
+	margin-top: 8px;
+	cursor: pointer;
+}
+
+.tarefas-info{
+	display: flex;
+	justify-content: space-between;
+}
+
+.tarefas-quadro{
+	min-width: 200px;
+	margin-left: 20px;
+	margin-right: 20px;
+	border: 1px solid black;
+}
+
+.semanas-tarefa-quadro{
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.mudar-dia-tarefa{
+	display: none;
+	z-index: 99999;
+	right: -60px;
+	bottom: -20px;
+	position: absolute;
+	background-color: #2C2C2C;
+}
+
+.mudar-dia-tarefa-box li{
+	margin: 0;
+	color: white;
+	cursor: pointer;
+	padding: 10px;
+}
+
+.mudar-dia-tarefa-box ul > li:nth-child(1){	
+	border-right: 1px solid white;
+}
+
+.mudar-dia-tarefa-box ul > li:nth-child(1):hover{
+	color: white;
+	background-color: #2C2C2C;
+}
+
+.mudar-dia-tarefa-box li:hover{
+	color: #2C2C2C;
+	background-color: white;
+}
+
+.excluir-tarefa{
+	display: none;
+	position: absolute;
+	background-color: black;
+	color: white;
+	width: 90px;
+	z-index: 99999;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.finalizar-tarefa, .ver-tarefa{
+	display: none;
+	background-color: #0F0F0F;
+	position: absolute;
+	cursor: pointer;
+	color: white;
+	right: -20px;
+	bottom: -20px;
+	padding: 5px;
+	font-weight: bold;
+	z-index: 9999999;
+}
+
+.janela-modal-tarefas{
+	font-size: 16px;
+	width: 68%!important;
+}
+
+.lista-tarefas{
+	overflow-x: scroll;
+}
+
+.lista-tarefas tr{
+	overflow-x: scroll;
+}
+
+.janela-modal-tarefas i{
+	cursor: pointer;
+}
+
+.concluir-tarefa{
+	display: none;
+	background-color: black;
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px;
+	width: 130px;
+	position: absolute;
+	right: -20px;
+}
+
+.icone-finalizado{
+	display: none;
+}
+
+/********************************************************************
+						FORM CALENDARIO
+********************************************************************/
+
+.form-box{
+	display: flex;
+	justify-content: space-around;
+	font-size: 18px;
+	background-color: #F5F5F5;
+	margin: 0 20px;
+	padding: 20px;
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+}
+
+select{
+	height: 45px;
+	min-width: 100px;
+	margin-top: 20px;
+	font-size: 20px;
+}
+
+.form-box-cliente{
+	font-size: 18px;
+	background-color: #F5F5F5;
+	margin: 0 20px;
+	padding: 20px;
+	-webkit-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	-moz-box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	box-shadow: 0px 0px 5px 2px rgba(212,212,212,1);
+	text-align: left;
+}
+
+.form-box-cliente input[type=text]{
+	width: 400px!important;
+	text-align: left!important;
+}
+
+.form-box-cliente input[type=radio]{
+	margin-top: 5px;
+}
+
+.form-box-cliente textarea{
+	width: 100%;
+	height: 70px;
+	resize: none;
+	padding: 5px 10px;
+}
+
+.opcoes-solicitacao-cliente{
+	font-size: 16px;
+}
+
+.info-cadastro-cliente .anexar-foto input{
+	width: auto!important;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+
+.anexar-foto{
+	justify-content: center;
+	font-size: 16px;
+}
+
+#fileToUpload{
+	display: none;
+}
+
+
+
+/********************************************************************
+						EDITAR IMAGEM USUARIO
+********************************************************************/
+.editar-foto-usuario{
+	background-size: cover;
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+}
+
+.imagem-perfil-usuario{
+	border-radius: 50%; 
+	width: 30px; 
+	top: 25px;
+	right: -15px; 
+	position: relative;
+	width: 30px;
+	height: 30px;
+  	background-size: cover;
+}
+
+.imagem-perfil-usuario-nav{
+	border-radius: 50%; 
+	width: 30px; 
+	top: -15px;
+	left: 5px;
+	position: relative;
+	width: 50px;
+	height: 50px;
+  	background-size: cover;
+}
+
+
+/********************************************************************
+					JANELAS DE CADASTRO E EDIÇÃO
+********************************************************************/
+.janela-modal-geral img{
+	width: 20px;
+	top: 12px;
+}
+
+.campos-formulario-container{
+	padding: 5px 10px;
+	background-color: #EBEBEB;
+}
+
+.campos-formulario{
+	text-align: left;
+	margin-top: 5px;
+	margin-bottom: 20px; 
+	background-color: white;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding: 0 10px;
+	padding-bottom: 10px;
+}
+
+.campos-formulario label{
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.campos-formulario input{
+	border: none;
+	border-bottom: 2px solid #E0E0E0;
+	padding: 5px;
+	font-size: 14px;
+	margin: 0;
+	background-color: white;
+}
+
+.campos-formulario input[type="text"]{
+	width: 200px;
+}
+
+.campos-formulario input[type="date"]{
+	width: 200px;
+}
+
+.campos-formulario input:focus{
+	outline: 0;
+	transition: 0.3s;
+	border-bottom: 2px solid black;
+}
+
+.campos-formulario textarea{
+	position: relative;
+	resize: none;
+	height: 60px;
+	width: 100%;
+	top: 5px;
+	padding: 5px;
+}
+
+.campos-formulario select{
+	height: 20px;
+	font-size: 14px;
+	margin: 0;
+	background-color: white;
+}
+
+.campos-formulario img{
+	position: static;
+	width: 50px;
+	height: 50px;
+}
+
+.campos-formulario-botao{
+	display: flex;
+	justify-content: center;
+}
+
+.campos-formulario-botao button{
+	background-color: #2D323E;
+	border-radius: 2px;
+	font-size: 14px; 
+}
+
+.campos-formulario-botao button:hover{
+	transition: 0.3s;
+	background-color: white;
+	color: black;
+	-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+
+/********************************************************************
+				  JANELAS MODAL SEPARADAS POR TIPO
+********************************************************************/
+.modal-cadastro-usuario{
+	width:570px;
+}
+
+.modal-cadastro-calendario{
+	width: 700px;
+}
+
+.modal-cadastro-cliente{
+	width: 370px;
+}
+
+.modal-cadastro-solicitacao{
+	width: 600px;
+}
+
+.modal-cadastro-projeto{
+	width: 550px;
+}
+
+
+/********************************************************************
+						PROJETOS
+********************************************************************/
+
+.projetos-wrapper{
+	margin-top: 50px;
+}
+
+.projetos-box-header{
+	display: flex;
+	justify-content: space-between;
+	background-color: white;
+	width: 100%;
+	padding: 20px 10px;
+	-webkit-box-shadow: 0px 0px 5px 0px rgba(158,158,158,1);
+	-moz-box-shadow: 0px 0px 5px 0px rgba(158,158,158,1);
+	box-shadow: 0px 0px 5px 0px rgba(158,158,158,1);
+}
+
+.projetos-box-header h2{
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.projetos-box-lista{
+	border-left: 1px solid #B5B5B5;
+	border-right: 1px solid #B5B5B5;
+	border-bottom: 1px solid #B5B5B5;
+	display: none;
+}
+
+.projetos-box-lista tr{
+	border: none!important;
+}
+
+.projetos-box-header button{
+	font-size: 10px;
+	padding: 10px 10px;
+	padding-bottom: 20px;
+	height: 20px;
+	cursor: pointer;
+	color: white;
+	background-color: black;
+	border: none;
+}
+
+.projetos-box-header button:hover{
+	background-color: white;
+	color:black;
+	-webkit-box-shadow: 0px 0px 5px 0px rgba(179,179,179,1);
+	-moz-box-shadow: 0px 0px 5px 0px rgba(179,179,179,1);
+	box-shadow: 0px 0px 5px 0px rgba(179,179,179,1);
+	transition: 0.3s
+}
+
+
+/********************************************************************
+						MEDIA QUERIES
+********************************************************************/
+
+@media screen and (max-width: 1020px){
+
+}
+
+@media screen and (max-width: 900px){
+	.nav-left{
+		display: none;
+	}
+
+	.nav-left-mini{
+		display: none;
+	}
+
+	.nav-left-mobile{
+		display: block;
+
+	}
+
+	.nav-painel ul{
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.nav-painel li{
+		margin-top: 20px;
+	}
+
+	.nav-painel a{
+		font-size: 12px;
+		margin-top: 20px;
+	}
+
+
+	.sub-header-mobile{
+		background-color: #2D323E;
+		font-size: 12px;
+		text-align: center;
+		color: #8C8F95!important;
+	}
+
+	.sub-header-mobile h2{
+		margin-top: -60px;
+		margin-bottom: 10px;
+	}
+
+	.sub-header-mobile i{
+		color: white;
+		margin-bottom: 20px!important;
+		cursor: pointer;
+	}
+
+	.menu-mobile{
+		font-size: 20px;
+		display: none;
+		position: absolute;
+		background-color: black;
+		width: 100%;
+		padding: 10px 50px;
+	}
+
+	.menu-mobile i{
+		margin-right: 10px;
+	}
+
+	.separador{
+		padding: 40px 5px;
+		width: 100%;
+		margin: 0 auto;
+	}
+
+	.clientes-box-wrapper{
+		flex-direction: column;
+		align-items: center;
+		overflow-x: scroll;  
+	}
+
+	.calendario-box-wrapper{
+		overflow-x: scroll;
+	}
+
+	.calendarios-visao-clientes{
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.nav-painel li:first-child{
+		margin-top: -20px;
+		font-size: 20px;
+	}
+
+	.janela-modal-geral{
+		width: 80%
+	}
+
+	.campos-formulario input{
+		margin: 5px 0;
+	}
+}
+
+@media screen and (max-width: 450px){
+
+}
