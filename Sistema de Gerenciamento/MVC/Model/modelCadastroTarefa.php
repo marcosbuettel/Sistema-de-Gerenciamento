@@ -28,7 +28,7 @@
 
 	//ATÉ AQUI ESTOU CADASTRANDO A SOLICITAÇÃO E VOU CADASTRAR A TAREFA AGORA
 
-	$cadastrarTarefa = $pdo->prepare("INSERT INTO tarefa (nome_cliente_tarefa, prazo_tarefa, tipo_tarefa, descricao_tarefa) VALUES ('$nomeCliente', '$prazoSolicitacao', 'producao', '$descSolicitacao')");
+	$cadastrarTarefa = $pdo->prepare("INSERT INTO tarefa (nome_cliente_tarefa, titulo_tarefa,prazo_tarefa, status_tarefa, descricao_tarefa, tipo_tarefa) VALUES ('$nomeCliente', '$tituloSolicitacao','$prazoSolicitacao', 'producao', '$descSolicitacao', 'solicitacao')");
 
 	$cadastrarTarefa->execute();
 

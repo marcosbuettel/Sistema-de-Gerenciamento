@@ -2,6 +2,7 @@
 	//PÁGINA PARA VISUALIZAR AS TAREFAS REFERENTE AOS BLOCOS 
 	//CADASTRADOS EM CADA CALENDÁRIO
 	
+	//include_once("MVC/Controller/controllerAcesso.php");
 	include_once('../Controller/controllerTarefaAtrasada.php');
 	include_once('../Controller/controllerVerificarP.php');
 	include_once('../Controller/controllerFormatarData.php');
@@ -38,7 +39,7 @@
 
 			<div class="tarefas-a-fazer-box-wrapper">
 				<?php for($i = 0; $i < count($totalTarefas); $i++){?>
-					<?php if($totalTarefas[$i]['dia_semana_tarefa'] == 999 && $totalTarefas[$i]['status_tarefa'] != 'finalizado'){?>
+					<?php if($totalTarefas[$i]['dia_semana_tarefa'] == 999 && $totalTarefas[$i]['status_tarefa'] != 'finalizado' && $totalTarefas[$i]['status_tarefa'] != 'aguardando-aprovacao' && $totalTarefas[$i]['status_tarefa'] != 'enviar-cliente'){?>
 						<div class="tarefas-a-fazer-box">
 							<div class="tarefas-info">
 								<?php if($totalTarefas[$i]['tipo_tarefa'] != 'solicitacao'){?>
@@ -56,7 +57,10 @@
 													<i class="far fa-eye" style="margin-top: 2px; margin-right: 2px"></i>
 													<h2><?php echo $totalTarefas[$i]['nome_cliente_tarefa']?></h2>
 												</div>
-											</summary><?php echo $totalTarefas[$i]['descricao_tarefa']?>						
+											</summary>
+											<p style="font-size: 12px">
+												<?php echo $totalTarefas[$i]['descricao_tarefa']?>
+											</p>	
 										</details>		
 										
 									</div>
@@ -64,6 +68,7 @@
 								<?php }?>
 								<h2><?php echo ucfirst($totalTarefas[$i]['p_tarefa'])?></h2>
 							</div>
+							<h4><?php echo $totalTarefas[$i]['titulo_tarefa']?></h4>
 							<p><?php echo $totalTarefas[$i]['mes_calendario_tarefa']?></p>
 							<div style="display: flex; justify-content: space-between;">
 								<p><b>Prazo:</b> <?php echo formatarData($totalTarefas[$i]['prazo_tarefa'])?></p>
@@ -160,7 +165,10 @@
 																<i class="far fa-eye" style="margin-top: 2px; margin-right: 2px"></i>
 																<h2><?php echo $totalTarefas[$j]['nome_cliente_tarefa']?></h2>
 															</div>
-														</summary><?php echo $totalTarefas[$j]['descricao_tarefa']?>						
+														</summary>
+														<p style="font-size: 12px">	
+														<?php echo $totalTarefas[$j]['descricao_tarefa']?>				
+														</p>	
 													</details>		
 													
 												</div>
@@ -168,25 +176,30 @@
 											<?php }?>
 											<h2><?php echo ucfirst($totalTarefas[$j]['p_tarefa'])?></h2>
 										</div>
+										<h4><?php echo $totalTarefas[$j]['titulo_tarefa']?></h4>	
 										<p><?php echo $totalTarefas[$j]['mes_calendario_tarefa']?></p>
 										<p><b>Prazo:</b> <?php echo formatarData($totalTarefas[$j]['prazo_tarefa'])?></p>
 										<div style="display: flex; flex-direction: row-reverse;">
 											<i class="fas fa-trash-alt" onmouseover="exibirExcluirTarefa(<?php echo $totalTarefas[$j]['id_tarefa']?>)" style="margin-left: 10px" onclick="excluirTarefa(<?php echo $totalTarefas[$j]['id_tarefa']?>)"></i>
 											<div class="excluir-tarefa" id="excluir-tarefa<?php echo $totalTarefas[$j]['id_tarefa']?>" style="bottom: -15px; right: -30px">EXCLUIR TAREFA</div>
 
-											<i class="fas fa-check-circle" style="margin-left: 10px" onmouseover="mostrarFinalizarTarefa(<?php echo $totalTarefas[$j]['id_tarefa']?>)" onclick="finalizarTarefa(<?php echo $totalTarefas[$j]['id_tarefa']?>)"></i>
+											<i class="fa-solid fa-thumbs-up" style="margin-left: 10px" onmouseover="mostrarParaAprovacao(<?php echo $totalTarefas[$j]['id_tarefa']?>)" onclick="mudarStatusTarefa(<?php echo $totalTarefas[$j]['id_tarefa']?>, 0)"></i>
 
+											<i onclick="mostrarEnviarLinkImg(<?php echo $totalTarefas[$j]['id_tarefa']?>)" class="fa-solid fa-image" style="margin-left: 10px;"></i>
+
+											<?php if($totalTarefas[$j]['mes_calendario_tarefa'] != null){?>
 											<i class="fas fa-tasks" style="margin-left: 10px;" onclick="abrirTarefas(<?php echo $totalTarefas[$j]['id_tarefa']?>)" onmouseover="verTarefas(<?php echo $totalTarefas[$j]['id_tarefa']?>)"></i>
-
-											<i class="far fa-calendar-alt" onmouseover="mostrarMenuDias(<?php echo $totalTarefas[$j]['id_tarefa']?>)"></i>
-
 											<div class="ver-tarefa" id="verTarefa<?php echo $totalTarefas[$j]['id_tarefa']?>">
 												VER TAREFAS
 											</div>
+											<?php }?>
+											
+											<i class="far fa-calendar-alt" onclick="mostrarMenuDias(<?php echo $totalTarefas[$j]['id_tarefa']?>)"></i>											
 
-											<div class="finalizar-tarefa" id="mudarFinalizarTarefa<?php echo $totalTarefas[$j]['id_tarefa']?>">
-												FINALIZAR TAREFA
+											<div class="finalizar-tarefa" id="paraAprovacao<?php echo $totalTarefas[$j]['id_tarefa']?>">
+												PARA APROVAÇÃO
 											</div>
+											
 											<div class="mudar-dia-tarefa" id="mudarDiaTarefa<?php echo $totalTarefas[$j]['id_tarefa']?>">
 												<?php for($l = 0; $l < count($totalSemanaTarefa); $l++){?>
 													<div class="mudar-dia-tarefa-box">
@@ -203,10 +216,17 @@
 												<?php }?><!-- FIM FOR 'l' -->
 											</div>
 										</div>
+
+										<div class="enviar-link-imagem-tarefa" id="input-enviar-link-img<?php echo $totalTarefas[$j]['id_tarefa']?>">
+											
+											<input type="text" id="link-imagem-tarefa<?php echo $totalTarefas[$j]['id_tarefa'] ?>">
+											<button onclick="cadastrarLinkImg(<?php echo $totalTarefas[$j]['id_tarefa']?>)">ENVIAR</button>
+											
+										</div>
 									</div>
 								<?php }?><!-- FIM IF -->
 
-								<div class="janela-modal-cadastro janela-modal-tarefas" id="janela-tarefas<?php echo $totalTarefas[$j]['id_tarefa']?>">
+								<div class="janela-modal-cadastro janela-modal-tarefas janela-modal-tarefas-quadro" id="janela-tarefas<?php echo $totalTarefas[$j]['id_tarefa']?>">
 									<img src="../../images/cancel.png" onclick="fecharJanelaModal()">
 									<div class="header-janela-modal">
 										<h2>Tarefas</h2>
@@ -324,6 +344,118 @@
 
 		<div class="tarefas-a-fazer">
 			<div class="header-tarefas-a-fazer">
+				<h2>AG. APROVAÇÃO</h2>
+			</div>
+
+			<div class="tarefas-a-fazer-box-wrapper">
+				<?php for($i = 0; $i < count($totalTarefas); $i++){?>
+					<?php if($totalTarefas[$i]['status_tarefa'] == 'aguardando-aprovacao'){?>
+						<div class="tarefas-a-fazer-box">
+							<div class="tarefas-info">
+								<?php if($totalTarefas[$i]['tipo_tarefa'] != 'solicitacao'){?>
+									<a href="viewPaginaCalendario.php?id=<?php echo $totalTarefas[$i]['id_calendario']?>">
+										<div style="display: flex">								
+											<i class="far fa-eye" style="margin-top: 2px; margin-right: 2px"></i>						
+											<h2><?php echo $totalTarefas[$i]['nome_cliente_tarefa']?></h2>		
+										</div>
+									</a>
+								<?php }else{?>
+									<div style="display: flex; flex-direction: column">
+										<details>
+											<summary>
+												<div style="display: flex">	
+													<i class="far fa-eye" style="margin-top: 2px; margin-right: 2px"></i>
+													<h2><?php echo $totalTarefas[$i]['nome_cliente_tarefa']?></h2>
+												</div>
+											</summary>
+											<p style="font-size: 12px">
+												<?php echo $totalTarefas[$i]['descricao_tarefa']?>
+											</p>	
+										</details>		
+										
+									</div>
+									
+								<?php }?>
+								<h2><?php echo ucfirst($totalTarefas[$i]['p_tarefa'])?></h2>
+							</div>
+							<h4><?php echo $totalTarefas[$i]['titulo_tarefa']?></h4>	
+							<p><?php echo $totalTarefas[$i]['mes_calendario_tarefa']?></p>
+							<p><b>Prazo:</b> <?php echo formatarData($totalTarefas[$i]['prazo_tarefa'])?></p>
+
+							<div style="display: flex; justify-content: space-between;flex-direction: row-reverse;">
+								
+								<div>
+									<!--<i class="fa-solid fa-eye" onclick="verImagemArte(<?php echo $totalTarefas[$i]['id_tarefa'] ?>)"></i>-->
+
+									<a href="viewTarefa.php?id=<?php echo $totalTarefas[$i]['id_tarefa']?>"><i class="fa-solid fa-eye"></i></a>
+
+									<i onclick="mostrarEnviarLinkImg(<?php echo $totalTarefas[$i]['id_tarefa']?>)" class="fa-solid fa-image" style="margin-left: 10px;"></i>
+
+									<i class="fa-solid fa-share" style="margin-left: 10px" onmouseover="mostrarEnviarCliente(<?php echo $totalTarefas[$i]['id_tarefa']?>)" onclick="mudarStatusTarefa(<?php echo $totalTarefas[$i]['id_tarefa']?>, 1)"></i>			
+
+									<div class="excluir-tarefa" id="mostrarEnviarCliente<?php echo $totalTarefas[$i]['id_tarefa']?>" style="bottom: -25px; right: -15px; width: auto">ENVIAR PARA O CLIENTE</div>
+
+									<!--
+									<div class="imagem-arte-tarefa" id="imagem-arte-tarefa<?php echo $totalTarefas[$i]['id_tarefa']?>">
+										
+
+										<iframe src="<?php echo $totalTarefas[$i]['link_img_tarefa']?>" width="640" height="480" allow="autoplay"></iframe>							
+									</div>-->
+									
+								</div>
+							</div>	
+
+							<div class="enviar-link-imagem-tarefa" id="input-enviar-link-img<?php echo $totalTarefas[$i]['id_tarefa']?>">								
+								<input type="text" id="link-imagem-tarefa<?php echo $totalTarefas[$i]['id_tarefa'] ?>">
+								<button onclick="cadastrarLinkImg(<?php echo $totalTarefas[$i]['id_tarefa']?>)">ENVIAR</button>								
+							</div>	
+
+						</div>			
+
+					<?php }?>
+				<?php }?>
+			</div>
+		</div>
+
+		<div class="tarefas-a-fazer">
+			<div class="header-tarefas-a-fazer">
+				<h2>ENVIAR CLIENTE</h2>
+			</div>
+
+			<div class="tarefas-a-fazer-box-wrapper">
+				<?php for($i = 0; $i < count($totalTarefas); $i++){?>
+					<?php if($totalTarefas[$i]['status_tarefa'] == 'enviar-cliente'){?>
+						<div class="tarefas-a-fazer-box">
+							<div class="tarefas-info">
+								<a href="viewTarefa.php?id=<?php echo $totalTarefas[$i]['id_tarefa']?>">
+									<div style="display: flex">
+										<i class="far fa-eye" style="margin-top: 2px; margin-right: 2px"></i>
+										<h2><?php echo $totalTarefas[$i]['nome_cliente_tarefa']?></h2>												
+									</div>
+								</a>
+								<h2><?php echo ucfirst($totalTarefas[$i]['p_tarefa'])?></h2>
+							</div>
+							<h4><?php echo $totalTarefas[$i]['titulo_tarefa']?></h4>	
+							<p><?php echo $totalTarefas[$i]['mes_calendario_tarefa']?></p>
+							<div style="display: flex; justify-content: space-between;">
+								<p><b>Prazo:</b> <?php echo formatarData($totalTarefas[$i]['prazo_tarefa'])?></p>
+								<div>
+
+									<i class="fa-solid fa-circle-check" style="margin-left: 10px" onmouseover="mostrarFinalizarTarefa(<?php echo $totalTarefas[$i]['id_tarefa']?>)" onclick="mudarStatusTarefa(<?php echo $totalTarefas[$i]['id_tarefa']?>, 2)"></i>
+
+									<div class="finalizar-tarefa" id="mudarFinalizarTarefa<?php echo $totalTarefas[$i]['id_tarefa']?>">FINALIZAR TAREFA</div>
+
+								</div>
+							</div>							
+						</div>
+
+					<?php }?>
+				<?php }?>
+			</div>
+		</div>
+
+		<div class="tarefas-a-fazer">
+			<div class="header-tarefas-a-fazer">
 				<h2>CONCLUÍDO</h2>
 			</div>
 
@@ -332,14 +464,15 @@
 					<?php if($totalTarefas[$i]['status_tarefa'] == 'finalizado'){?>
 						<div class="tarefas-a-fazer-box">
 							<div class="tarefas-info">
-								<a href="viewPaginaCalendario.php?id=<?php echo $totalTarefas[$i]['id_calendario']?>">
+								<a href="viewTarefa.php?id=<?php echo $totalTarefas[$i]['id_tarefa']?>">
 									<div style="display: flex">
 										<i class="far fa-eye" style="margin-top: 2px; margin-right: 2px"></i>
-										<h2><?php echo $totalTarefas[$i]['nome_cliente_tarefa']?></h2>		
+										<h2><?php echo $totalTarefas[$i]['nome_cliente_tarefa']?></h2>
 									</div>
 								</a>
 								<h2><?php echo ucfirst($totalTarefas[$i]['p_tarefa'])?></h2>
 							</div>
+							<h4><?php echo $totalTarefas[$i]['titulo_tarefa']?></h4>	
 							<p><?php echo $totalTarefas[$i]['mes_calendario_tarefa']?></p>
 							<div style="display: flex; justify-content: space-between;">
 								<p><b>Prazo:</b> <?php echo formatarData($totalTarefas[$i]['prazo_tarefa'])?></p>
@@ -483,21 +616,41 @@
 			$('.mudar-dia-tarefa').css('display', 'none');
 		});
 
+		function mostrarParaAprovacao(id){
+			$('#paraAprovacao'+id).css('display', 'block');
+		}
+
 		function mostrarFinalizarTarefa(id){
 			$('#mudarFinalizarTarefa'+id).css('display', 'block');
 		}
 
-		$('.fa-check-circle').mouseleave(function(){
+		$('.fa-thumbs-up').mouseleave(function(){
 			$('.finalizar-tarefa').css('display', 'none');
-		});
+		}); 
 
 		$('.fa-tasks').mouseleave(function(){
 			$('.ver-tarefa').css('display', 'none');
 		});
 		
 
-		function finalizarTarefa(id){
-			document.location = '../Model/modelFinalizarTarefa.php?id='+id;
+		//STATUS: 
+		//TIPO = 0 -> PARA APROVAÇÃO
+		//TIPO = 1 -> ENVIAR CLIENTE
+		//TIPO = 2 -> FINALIZAR
+		function mudarStatusTarefa(id, tipo){
+			var tipo = tipo;
+
+			if(tipo == 0){
+				var result = confirm("Enviar para aprovação?"); 
+			}else if(tipo == 1){
+				var result = confirm("Enviar para cliente?");
+			}else{
+				var result = confirm("Finalizar tarefa?");
+			}
+
+	        if (result == true) { 
+				document.location = '../Model/modelMudarStatusTarefa.php?id='+id+'&tipo='+tipo;
+			}
 		}
 
 		function verTarefas(id) {
@@ -515,6 +668,14 @@
 			//$('tr:nth-child(2n)').css('background-color', 'white');
 		}
 
+		function mostrarEnviarCliente(id){
+			$('#mostrarEnviarCliente'+id).css('display', 'block');
+		}
+
+		$('.fa-share').mouseleave(function(){
+			$('.excluir-tarefa').css('display', 'none');
+		});
+
 		function exibeConcluirTarefaLista(id){
 			$('#tarefa-listada'+id).css('display', 'block');
 		}
@@ -523,12 +684,18 @@
 			$('.concluir-tarefa').css('display', 'none');
 		});
 
+		$('.fa-circle-check').mouseleave(function(){
+			$('.finalizar-tarefa').css('display', 'none');
+		});
+		
+
 		function concluirTarefaListada(id){
 			document.location = '../Model/modelConcluirTarefaListada.php?id='+id;
 		}
 
 		function cadastroSolicitacao(){
-			$('.janela-modal-cadastro-tarefa').css('display', 'block');
+			//$('.janela-modal-cadastro-tarefa').css('display', 'block');
+			$('.janela-modal-cadastro-tarefa').slideToggle();
 			$('body').css('background-color', 'rgba(0,0,0,0.5)');
 			//$('tr:nth-child(2n)').css('background-color', 'rgba(255,255,255,0.5)');
 		}
@@ -548,14 +715,30 @@
 
 	        if (result == true) { 
 	            doc = "../Model/modelExcluirTarefa.php?id="+id; 
-	        } else { 
-	            doc = "viewQuadroTarefas.php"; 
-	        } 
-
-	        window.location.replace(doc);
+	            window.location.replace(doc);
+	        }	        
 		}
 
+		function mostrarEnviarLinkImg(id){
+			$('#input-enviar-link-img'+id).slideToggle();
+		}
 
+		function cadastrarLinkImg(idTarefa){
+			var linkTarefa = document.getElementById('link-imagem-tarefa'+idTarefa).value;
+
+			$.ajax({
+				method: 'POST',
+				data:{'id': idTarefa, 'link': linkTarefa},
+				url: '../Model/modelCadastrarLinkImgTarefa.php'
+			}).done(function(){
+				$('#input-enviar-link-img'+idTarefa).css('display', 'none');
+				alert('Link cadastrado!');
+			});
+		}
+
+		function verImagemArte(id){
+			$('#imagem-arte-tarefa'+id).slideToggle();
+		}
 	</script>
 
 <?php }else{?>

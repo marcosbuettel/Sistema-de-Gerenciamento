@@ -28,7 +28,8 @@
 	<head>
 		<title>Sistema Calendário</title>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>		
+ 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -76,6 +77,13 @@
 					<!-- ESSA DIV SERÁ PARA MOSTRAR TODAS AS
 						INFORMAÇÕES DE TODAS AS NOTIFICAÇÕES -->
 					<div class="barra-notificacao">
+
+						<div style="padding: 5px">
+							<div class="marcar-notificacao-lidas">								
+								<button onclick="marcarNotificacaoLida(<?php echo $idUsuarioLogado?>)"><i class="fas fa-check-circle"></i> MARCAR TODAS COMO LIDAS</button>
+							</div>
+						</div>
+
 						<?php 
 							for($i=0; $i<count($totalNotificacao); $i++){
 								//CHAMO ESSE ARQUIVO PARA COLETAR
@@ -162,7 +170,44 @@
 
 						<?php }else if($totalNotificacao[$i]['tipo_notificacao'] == 'calendario-cadastrado'){?>		
 
-						<div class="notificacao" style="background-color: #E2EAFF">				
+						<div class="notificacao" style="background-color: #E2EAFF">	
+
+						<?php }else if($totalNotificacao[$i]['tipo_notificacao'] == 'nova-tarefa'){?>	
+
+						<div class="notificacao" style="background-color: #E2EAFF" onclick="visualizarNotificacaoTarefa(<?php echo $idNotificacaoAtiva;?>)">	
+
+
+							<?php 
+								$idProjetoBuscado = $totalNotificacao[$i]['id_cliente'];
+
+								$buscarNomeProjeto = $pdo->prepare("SELECT * FROM projetos WHERE id_projeto = '$idProjetoBuscado'");
+								$buscarNomeProjeto->execute();
+								$totalBuscarNomeProjeto = $buscarNomeProjeto->fetchAll();
+
+								$nomeProjetoBuscado = $totalBuscarNomeProjeto[0]['nome_projeto'];
+
+							?>
+
+
+							<i class="fas fa-list-ul"></i> Nova tarefa criada no projeto <?php echo $nomeProjetoBuscado; ?>			
+
+						<?php }else if($totalNotificacao[$i]['tipo_notificacao'] == 'aguardando-aprovacao'){?>	
+						
+						<div class="notificacao" style="background-color: #E2EAFF" onclick="visualizarNotificacaoTarefaQuadro(<?php echo $idNotificacaoAtiva;?>)">
+
+							<i class="fa-solid fa-clock"></i> <?php echo $totalNotificacao[$i]['titulo_notificacao']?> aguardando aprovação 
+
+						<?php }else if($totalNotificacao[$i]['tipo_notificacao'] == 'enviar-cliente'){?>	
+							
+						<div class="notificacao" style="background-color: #E2EAFF" onclick="visualizarNotificacaoTarefaQuadro(<?php echo $idNotificacaoAtiva;?>)">		
+
+							<i class="fa-solid fa-share"></i> <?php echo $totalNotificacao[$i]['titulo_notificacao']?> pode ser enviada para o cliente 
+
+						<?php }else if($totalNotificacao[$i]['tipo_notificacao'] == 'comentario-tarefa'){?>	
+							
+						<div class="notificacao" style="background-color: #E2EAFF" onclick="visualizarNotificacaoTarefaQuadro(<?php echo $idNotificacaoAtiva;?>)">		
+
+							<i class="fa-solid fa-share"></i> Novo comentário na tarefa <?php echo $totalNotificacao[$i]['titulo_notificacao']?>  
 
 						<?php }else{?>
 						<div class="notificacao" style="background-color: #E2EAFF" onclick="visualizarNotificacao(<?php echo $idCalendarioLink;?>, <?php echo $idBlocoCalendarioLink;?>, <?php echo $totalVerificarNotificacaoPorUsuario[0]['id_notificacao']?>)">
@@ -187,6 +232,45 @@
 						?>
 
 						<div class="notificacao" onclick="visualizarNotificacaoSolicitacao(<?php echo $totalNotificacao[$i]['id_cliente']?>, <?php echo $totalVerificarNotificacaoPorUsuario[0]['id_notificacao']?>)">
+
+						<?php }else if($totalNotificacao[$i]['tipo_notificacao'] == 'nova-tarefa'){?>		
+
+						<div class="notificacao" onclick="visualizarNotificacaoTarefa(<?php echo $idNotificacaoAtiva;?>)">	
+
+
+							<?php 
+								$idProjetoBuscado = $totalNotificacao[$i]['id_cliente'];
+
+								$buscarNomeProjeto = $pdo->prepare("SELECT * FROM projetos WHERE id_projeto = '$idProjetoBuscado'");
+								$buscarNomeProjeto->execute();
+								$totalBuscarNomeProjeto = $buscarNomeProjeto->fetchAll();
+
+								$nomeProjetoBuscado = $totalBuscarNomeProjeto[0]['nome_projeto'];
+
+							?>
+
+
+							<i class="fas fa-list-ul"></i> Nova tarefa criada no projeto <?php echo $nomeProjetoBuscado; ?>
+
+						<?php }else if($totalNotificacao[$i]['tipo_notificacao'] == 'aguardando-aprovacao'){?>	
+
+						<div class="notificacao" onclick="visualizarNotificacaoTarefaQuadro(<?php echo $idNotificacaoAtiva;?>)">	
+
+							<i class="fa-solid fa-clock"></i> <?php echo $totalNotificacao[$i]['titulo_notificacao']?> aguardando aprovação 
+
+						<?php }else if($totalNotificacao[$i]['tipo_notificacao'] == 'enviar-cliente'){?>	
+							
+						<div class="notificacao" onclick="visualizarNotificacaoTarefaQuadro(<?php echo $idNotificacaoAtiva;?>)">	
+
+							<i class="fa-solid fa-share"></i> <?php echo $totalNotificacao[$i]['titulo_notificacao']?> pode ser enviada para o cliente 
+
+
+						<?php }else if($totalNotificacao[$i]['tipo_notificacao'] == 'comentario-tarefa'){?>	
+							
+						<div class="notificacao" onclick="visualizarNotificacaoTarefaQuadro(<?php echo $idNotificacaoAtiva;?>)">	
+
+							<i class="fa-solid fa-share"></i> Novo comentário na tarefa <?php echo $totalNotificacao[$i]['titulo_notificacao']?> 	
+
 
 						<?php }else if($totalNotificacao[$i]['tipo_notificacao'] == 'calendario-cadastrado'){?>		
 
@@ -233,11 +317,10 @@
 							<i class="fas fa-images" style="color: #34d399"></i><span> Arte cadastrada por <b><?php echo ucfirst($totalBuscaCliente[0]['nome_usuario'])?></b>,</span>
 
 							<?php }else if($totalNotificacao[$i]['tipo_notificacao'] == 'calendario-cadastrado'){?>
-							<i class="fas fa-images" style="color: #34d399"></i><span> Calendario criado por <b><?php echo ucfirst($totalBuscaCliente[0]['nome_usuario'])?></b></span>
-
+							<i class="fas fa-images" style="color: #34d399"></i><span> Calendario criado por <b><?php echo ucfirst($totalBuscaCliente[0]['nome_usuario'])?></b></span>							
 							<?php }?>
 							
-							<?php if($totalNotificacao[$i]['tipo_notificacao'] != 'solicitacao' && $totalNotificacao[$i]['tipo_notificacao'] != 'calendario-cadastrado'){?>
+							<?php if($totalNotificacao[$i]['tipo_notificacao'] != 'solicitacao' && $totalNotificacao[$i]['tipo_notificacao'] != 'calendario-cadastrado' && $totalNotificacao[$i]['tipo_notificacao'] != 'nova-tarefa' && $totalNotificacao[$i]['tipo_notificacao'] != 'aguardando-aprovacao' && $totalNotificacao[$i]['tipo_notificacao'] != 'enviar-cliente' && $totalNotificacao[$i]['tipo_notificacao'] != 'comentario-tarefa'){?>
 							<p>no post <?php echo $totalBlocoCalendario[0]['tema_bloco_calendario']?></p>
 							<?php }?>
 						</div><!--</a>-->
@@ -256,12 +339,12 @@
 					<i style="color: white;" class="fas fa-bars"></i>
 				</div>
 				
-				<!--<h2>Painel Administrativo</h2>--><br><br><br>
+				<!--<h2>Painel Administrativo</h2>--><br>
 				
-				<a href="viewPainelAdministrativo.php"><i class="fas fa-house-user"></i>Início</a><br><br>
+				<a href="viewPainelAdministrativo.php"><i class="fas fa-house-user"></i>Início</a><br>
 
 				<?php if($_SESSION['tipo-usuario'] == 'master'){?>
-					<a href="viewUsuarios.php"><i class="fas fa-user-lock"></i>Gerenciar Usuários</a><br><br>
+					<a href="viewUsuarios.php"><i class="fas fa-user-lock"></i>Gerenciar Usuários</a><br>
 				<?php } ?>
 
 				<?php if($_SESSION['tipo-usuario'] == 'master'){?>
@@ -269,39 +352,51 @@
 				<?php } ?>
 
 				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
-					<a href="viewClientes.php"><i class='fas fa-user-cog'></i>Gerenciar Clientes</a><br><br>
+					<a href="viewClientes.php"><i class='fas fa-user-cog'></i>Gerenciar Clientes</a><br>
+				<?php }?>					
+
+				<!--<?php //if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){ ?>
+					<a href="viewPrazos.php"><i class="fas fa-history"></i>Gerenciar Prazos</a><br><br>
+				<?php //} ?>-->
+				
+				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
+					<a href="viewCalendarios.php"><i class="far fa-calendar-alt"></i>Gerenciar Calendários</a><br>
+				<?php }else{?>
+					<a href="viewCalendariosPorCliente.php"><i class="far fa-calendar-alt"></i>Calendários</a><br>
+				<?php }?>
+
+				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
+					<a href="viewCalendariosArquivados.php"><i class="fas fa-calendar-times"></i>Calendários Arquivados</a><br>
+				<?php }else{?>
+					<a href="viewCalendariosArquivadosPorCliente.php"><i class="fas fa-calendar-times"></i>Calendários Arquivados</a><br>
+				<?php }?>
+
+				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
+					<a href="viewProjetos.php"><i class="fas fa-paste"></i>Gerenciar Projetos</a><br>
 				<?php }?>	
 
 				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
-					<a href="viewPrazos.php"><i class="fas fa-history"></i>Gerenciar Prazos</a><br><br>
-				<?php }?>		
-				
+					<a href="viewQuadroProjetos.php"><i class="fa-solid fa-diagram-project"></i>Fluxos</a><br>
+				<?php }?>	
+
 				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
-					<a href="viewCalendarios.php"><i class="far fa-calendar-alt"></i>Gerenciar Calendários</a><br><br>
-				<?php }else{?>
-					<a href="viewCalendariosPorCliente.php"><i class="far fa-calendar-alt"></i>Calendários</a><br><br>
+					<a href="viewProjetosArquivados.php"><i class="fas fa-folder-open"></i> Projetos Arquivados</a><br>
+				<?php }?>							
+
+				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
+					<a href="viewSolicitacoes.php"><i class="fas fa-clipboard-list"></i>Gerenciar Solicitações</a><br>
 				<?php }?>
 
 				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
-					<a href="viewProjetos.php"><i class="fas fa-paste"></i>Gerenciar Projetos</a><br><br>
+					<a href="viewAgenda.php"><i class="fa-solid fa-calendar-day"></i> Agenda</a><br>
+				<?php }?>				
+
+				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
+					<a href="viewTarefas.php"><i class="fas fa-tasks"></i>Tarefas</a><br>
 				<?php }?>
 
 				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
-					<a href="viewCalendariosArquivados.php"><i class="fas fa-calendar-times"></i>Calendários Arquivados</a><br><br>
-				<?php }else{?>
-					<a href="viewCalendariosArquivadosPorCliente.php"><i class="fas fa-calendar-times"></i>Calendários Arquivados</a><br><br>
-				<?php }?>
-
-				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
-					<a href="viewSolicitacoes.php"><i class="fas fa-clipboard-list"></i>Gerenciar Solicitações</a><br><br>
-				<?php }?>
-
-				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
-					<a href="viewTarefas.php"><i class="fas fa-tasks"></i>Tarefas</a><br><br>
-				<?php }?>
-
-				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
-					<a href="viewQuadroTarefas.php"><i class="fas fa-chalkboard-teacher"></i>Quadro de Tarefas</a><br><br>
+					<a href="viewQuadroTarefas.php"><i class="fas fa-chalkboard-teacher"></i>Quadro de Tarefas</a><br>
 				<?php }?>
 
 				
@@ -318,17 +413,17 @@
 					<div class="info-ico-menu" id="abrir-menu">ABRIR MENU</div>
 				</div>
 
-				<br><br><br>
+				<br>
 				<a href="viewPainelAdministrativo.php">
 					<i class="fas fa-house-user" onmouseover="exibeInfoMenu('inicio')"></i>
 					<div class="info-ico-menu" id="inicio">INÍCIO</div>
-				</a><br><br>
+				</a><br>
 
 				<?php if($_SESSION['tipo-usuario'] == 'master'){?>
 					<a href="viewUsuarios.php">
 						<i class="fas fa-user-lock" onmouseover="exibeInfoMenu('usuarios')"></i>
 						<div class="info-ico-menu" id="usuarios">USUÁRIOS</div>
-					</a><br><br>
+					</a><br>
 				<?php } ?>
 
 				<?php if($_SESSION['tipo-usuario'] == 'master'){?>
@@ -339,66 +434,87 @@
 					<a href="viewClientes.php">
 						<i class='fas fa-user-cog' onmouseover="exibeInfoMenu('clientes')"></i>
 						<div class="info-ico-menu" id="clientes">CLIENTES</div>
-					</a><br><br>
+					</a><br>
 				<?php }?>	
 
-				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
+				<!--<?php //if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
 					<a href="viewPrazos.php">
 						<i class="fas fa-history" onmouseover="exibeInfoMenu('prazos')"></i>
 						<div class="info-ico-menu" id="prazos">PRAZOS</div>
 					</a><br><br>
-				<?php }?>		
+				<?php //} ?>-->
 				
 				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
 					<a href="viewCalendarios.php">
 						<i class="far fa-calendar-alt" onmouseover="exibeInfoMenu('calendarios')"></i>
 						<div class="info-ico-menu" id="calendarios">CALENDÁRIOS</div>
-					</a><br><br>
+					</a><br>
 				<?php }else{?>
 					<a href="viewCalendariosPorCliente.php">
 						<i class="far fa-calendar-alt" onmouseover="exibeInfoMenu('calendarios')"></i>
 						<div class="info-ico-menu">CALENDÁRIOS</div>
-					</a><br><br>
-				<?php }?>
-
-				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
-					<a href="viewProjetos.php">
-						<i class="fas fa-paste" onmouseover="exibeInfoMenu('projetos')"></i>
-						<div class="info-ico-menu" id="projetos">PROJETOS</div>
-					</a><br><br>
+					</a><br>
 				<?php }?>
 
 				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
 					<a href="viewCalendariosArquivados.php">
 						<i class="fas fa-calendar-times" onmouseover="exibeInfoMenu('arquivados')"></i>
 						<div class="info-ico-menu" id="arquivados">ARQUIVADOS</div>
-					</a><br><br>
+					</a><br>
 				<?php }else{?>
 					<a href="viewCalendariosArquivadosPorCliente.php">
 						<i class="fas fa-calendar-times" onmouseover="exibeInfoMenu('arquivados')"></i>
 						<div class="info-ico-menu" id="arquivados">ARQUIVADOS</div>
-					</a><br><br>
+					</a><br>
 				<?php }?>
+
+				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
+					<a href="viewProjetos.php">
+						<i class="fas fa-paste" onmouseover="exibeInfoMenu('projetos')"></i>
+						<div class="info-ico-menu" id="projetos">PROJETOS</div>
+					</a><br>
+				<?php }?>
+
+				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
+					<a href="viewQuadroProjetos.php">
+						<i class="fa-solid fa-diagram-project" onmouseover="exibeInfoMenu('planilhas')"></i>
+						<div class="info-ico-menu" id="planilhas">FLUXOS</div>
+					</a><br>
+				<?php }?>
+
+				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
+					<a href="viewProjetosArquivados.php">
+						<i class="fas fa-folder-open" onmouseover="exibeInfoMenu('p-arquivados')"></i>
+						<div class="info-ico-menu" id="p-arquivados">PROJETOS ARQUIVADOS</div>
+					</a><br>
+				<?php }?>			
 
 				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
 					<a href="viewSolicitacoes.php">
 						<i class="fas fa-clipboard-list" onmouseover="exibeInfoMenu('solicitacoes')"></i>
 						<div class="info-ico-menu" id="solicitacoes">SOLICITAÇÕES</div>
-					</a><br><br>
+					</a><br>
+				<?php }?>
+
+				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
+					<a href="viewAgenda.php">
+						<i class="fa-solid fa-calendar-day" onmouseover="exibeInfoMenu('agenda')"></i>
+						<div class="info-ico-menu" id="agenda">AGENDA</div>
+					</a><br>
 				<?php }?>
 
 				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
 					<a href="viewTarefas.php">
 						<i class="fas fa-tasks" onmouseover="exibeInfoMenu('tarefas')"></i>
 						<div class="info-ico-menu" id="tarefas">TAREFAS</div>
-					</a><br><br>
+					</a><br>
 				<?php }?>
 
 				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
 					<a href="viewQuadroTarefas.php">
 						<i class="fas fa-chalkboard-teacher" onmouseover="exibeInfoMenu('quadro')"></i>
 						<div class="info-ico-menu" id="quadro">QUADRO</div>
-					</a><br><br>
+					</a><br>
 				<?php }?>				
 				
 				<!--<a href="viewProjetos.php"><i class="fas fa-paste"></i>Gerenciar Projetos</a><br><br>-->
@@ -412,7 +528,7 @@
 			<!-- DIV DA BARRA (MENU) LATERAL PARA O MOBILE -->
 			<div class="nav-left-mobile">
 				<div class="sub-header-mobile">
-					<img src="../../images/logoiSeven2.png">
+					<!--<img src="../../images/logoiSeven2.png">-->
 					<h2>Painel Administrativo</h2>
 					<p>OLÁ <?php echo strtoupper($_SESSION['login'])?>!</p><br><br>
 					<i class="fas fa-bars" id="icone-menu"></i>
@@ -445,6 +561,10 @@
 						<a href="viewSolicitacoes.php"><i class="fas fa-clipboard-list"></i>Gerenciar Solicitações</a><br><br>
 					<?php }?>
 
+					<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
+						<a href="viewAgenda.php"><i class="fa-solid fa-calendar-day"></i>Agenda</a><br><br>
+					<?php }?>
+
 					<a href="../Controller/controllerLogout.php"><i class="fas fa-door-open"></i>Sair</a>
 				</div>
 			</div>
@@ -462,6 +582,10 @@
 				$('.barra-notificacao').slideToggle();				
 			}
 
+			$('.barra-notificacao').mouseleave(function(){
+				$('.barra-notificacao').slideToggle();
+			});
+
 			//QUANDO CLICAR NA NOTIFICAÇÃO, LEVAR PARA O BLOCO
 			//ONDE ELA ESTÁ LIGADA E MARCAR ELA COMO LIDA NO BANCO
 			function visualizarNotificacao(idCalendario, idBlocoCalendario,idNotificacaoAtiva){
@@ -470,6 +594,14 @@
 
 			function visualizarNotificacaoSolicitacao(idCliente, idNotificacao){
 				document.location = '../Model/modelVerificaClienteSolicitacao.php?id='+idCliente+'&idN='+idNotificacao;
+			}
+
+			function visualizarNotificacaoTarefa(idNotificacao){
+				document.location = '../Model/modelDesativarNotificacaoTarefa.php?idN='+idNotificacao;
+			}
+
+			function visualizarNotificacaoTarefaQuadro(idNotificacao){
+				document.location = '../Model/modelDesativarNotificacaoTarefaQuadro.php?idN='+idNotificacao;
 			}
 
 			function visualizarNotificacaoCalendario(idCalendario, idNotificacaoAtiva){
@@ -505,6 +637,10 @@
 			$('.nav-left-mini i').mouseleave(function(){
 				$('.info-ico-menu').css('display', 'none');
 			});
+
+			function marcarNotificacaoLida(id){
+				document.location = '../Model/modelMarcarNotificacaoLida.php?idN='+id;
+			}
 
 			/*$('.ico-menu').click(function() {
 			   $('.nav-left').css({

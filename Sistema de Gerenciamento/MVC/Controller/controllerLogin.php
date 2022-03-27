@@ -26,9 +26,9 @@
 				$_SESSION['nome-cliente'] = $nomeCliente;
 				$_SESSION['imagem-usuario'] = $imgUsuario;
 
-				header('Location: MVC/View/viewPainelAdministrativo.php');
+				//header('Location: MVC/View/viewPainelAdministrativo.php');
 
-				//echo "<script>document.location='MVC/View/viewPainelAdministrativo.php'</script>";		
+				echo "<script>document.location='MVC/View/viewPainelAdministrativo.php'</script>";		
 			}
 			else{
 				if($contErro == 0){

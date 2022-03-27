@@ -1,6 +1,7 @@
 <?php 
 	//PÁGINA ONDE FICA O CALENDÁRIO E SEUS BLOCOS 
-
+	
+	//include_once("MVC/Controller/controllerAcesso.php");
 	include_once('../Controller/controllerFormatarData.php');
 	include_once("../../body/headCalendarios.php");
 	include_once("../Model/modelBancoDeDados.php");
@@ -112,6 +113,9 @@
 
 	<section class="calendario-wrapper">
 
+		<input type="text" id="dia-bloco-duplicar" hidden>
+		<input type="text" id="semana-bloco-duplicar" hidden>
+
 		<div class="dias-wrapper">
 			<p>Segunda</p>
 			<p>Terça</p>
@@ -185,11 +189,12 @@
 								
 			?>	
 				<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
-					<div style="cursor: pointer;" class="calendario-box-vazia" onclick="cadastroBlocoCalendario(<?php echo $j ?>, <?php echo $i ?>)">
-						<img src="../../images/calendar-icon.png">
+					<div style="cursor: pointer;" class="calendario-box-vazia" >
+						<i class="fas fa-copy icone-duplicar-bloco" onclick="duplicarBloco(<?php echo $j ?>, <?php echo $i ?>)"></i>
+						<img src="../../images/calendar-icon.png" onclick="cadastroBlocoCalendario(<?php echo $j ?>, <?php echo $i ?>)">
 					</div>	
 				<?php }else{?>
-					<div style="cursor: pointer;" class="calendario-box-vazia">
+					<div style="cursor: pointer;" class="calendario-box-vazia" >
 						<img src="../../images/calendar-icon.png">
 					</div>
 				<?php }?>
@@ -293,13 +298,15 @@
 					<?php if($totalCalendario[0]['planilha_calendario'] == null){?>
 
 					
-					
+					<div class="producao-bloco-calendario" id="producao-bloco-calendario-producao<?php echo $totalBlocosCalendarios[0]['id_bloco_calendario']?>" style="display: none">				
+						<p>PRODUÇÃO</p>
+					</div>
 					
 					<div class="producao-bloco-calendario" id="producao-bloco-calendario-agendado<?php echo $totalBlocosCalendarios[0]['id_bloco_calendario']?>" style="display: none">				
 						<p>AGENDADO</p>
 					</div>
 
-					<div class="producao-bloco-calendario" id="producao-bloco-calendario-producao<?php echo $totalBlocosCalendarios[0]['id_bloco_calendario']?>" style="display: none">				
+					<div class="producao-bloco-calendario" id="producao-bloco-calendario-publicado<?php echo $totalBlocosCalendarios[0]['id_bloco_calendario']?>" style="display: none">				
 						<p>PUBLICADO</p>
 					</div>
 
@@ -321,6 +328,7 @@
 								<i class="fas fa-ellipsis-v" onmouseover="abrirMudaStatus(<?php echo $totalBlocosCalendarios[0]['id_bloco_calendario']?>)"></i>
 								<div class="muda-status-bloco-lista" id="muda-status<?php echo $totalBlocosCalendarios[0]['id_bloco_calendario']?>">
 									<ul>
+										<li class="muda-status-producao" id="<?php echo $totalBlocosCalendarios[0]['id_bloco_calendario']?>">PRODUÇÃO</li>
 										<li class="muda-status-agendado" id="<?php echo $totalBlocosCalendarios[0]['id_bloco_calendario']?>">AGENDADO</li>
 										<li class="muda-status-publicado" id="<?php echo $totalBlocosCalendarios[0]['id_bloco_calendario']?>">PUBLICADO</li>
 									</ul>
@@ -329,6 +337,11 @@
 						<?php }?>
 						
 					</div>
+					<br>
+					<div class="botao-calendario botao-duplicar-bloco pulse">
+						<button onclick="duplicarEsseBloco(<?php echo $totalBlocosCalendarios[0]['id_bloco_calendario']?>, <?php echo $idCalendario?>)">COPIAR ESSE BLOCO</button>
+					</div>
+
 					<?php }?>
 
 					<?php if($totalCalendario[0]['planilha_calendario'] != null){?>
@@ -538,7 +551,57 @@
 			document.getElementById('dia-bloco').value = diaSemanaConvertido;
 			document.getElementById('semana-bloco').value = semanaBloco;
 
-			$('.janela-cadastro-bloco-calendario').css('display', 'block');
+			//$('.janela-cadastro-bloco-calendario').css('display', 'block');
+			$('.janela-cadastro-bloco-calendario').slideToggle();
+		}
+
+
+		//FUNÇÃO PARA ATIVAR O BOTÃO PARA ESCOLHER O BLOCO
+		//QUE SERÁ DUPLICADO
+		function duplicarBloco(diaSemana, semanaBloco) {
+			var diaSemana = diaSemana;
+			var semanaBloco = semanaBloco;
+			var diaSemanaConvertido;
+
+			if(diaSemana == 0){
+				diaSemanaConvertido = 'segunda';
+			}
+			else if(diaSemana == 1){
+				diaSemanaConvertido = 'terca';
+			}
+			else if(diaSemana == 2){
+				diaSemanaConvertido = 'quarta';
+			}
+			else if(diaSemana == 3){
+				diaSemanaConvertido = 'quinta';
+			}
+			else if(diaSemana == 4){
+				diaSemanaConvertido = 'sexta';
+			}
+			else if(diaSemana == 5){
+				diaSemanaConvertido = 'sabado';
+			}
+			else if(diaSemana == 6){
+				diaSemanaConvertido = 'domingo';
+			}
+
+			$('.botao-duplicar-bloco').css('display', 'flex');
+			$('.icone-duplicar-bloco').css('display', 'none');
+			
+			document.getElementById('dia-bloco-duplicar').value = diaSemanaConvertido;
+			document.getElementById('semana-bloco-duplicar').value = semanaBloco;
+		}
+
+		function duplicarEsseBloco(idBloco, idCalendario) {
+			var diaBloco;
+			var semanaBloco;
+			var idBloco = idBloco;
+			var idCalendario = idCalendario;
+
+			diaBloco = document.getElementById('dia-bloco-duplicar').value;
+			semanaBloco = document.getElementById('semana-bloco-duplicar').value;
+
+			document.location = '../Model/modelDuplicarBlocoCalendario.php?idC='+idCalendario+'&idB='+idBloco+'&diaB='+diaBloco+'&semanaB='+semanaBloco;
 		}
 
 		//FUNÇÃO PARA PEGAR OS ID'S DO BLOCO E DO CALENDARIO
@@ -586,12 +649,29 @@
 
 	        if (result == true) { 
 	            doc = "../Model/modelExcluirBlocoCalendario.php?id="+idBlocoCalendario+"&idC="+idCalendario; 
-	        } else { 
-	            doc = "viewPaginaCalendario.php?id="+idCalendario; 
-	        } 
-
-	        window.location.replace(doc);
+	            window.location.replace(doc);
+	        }	        
 		}
+
+
+		/*
+			PARTE PARA MUDAR O STATUS DO BLOCO FEITO COM AJAX
+		*/
+
+		$('.muda-status-producao').click(function(){
+			var id_bloco_calendario = $(this).attr('id');
+			$.ajax({
+				method: 'post',
+				data:{'id': id_bloco_calendario, 'tipo': 'producao'},
+				url: '../Model/modelEditarAndamentoBlocoCalendario.php'
+			}).done(function(){
+				$('#producao-bloco-calendario-avulso'+id_bloco_calendario).css('display', 'none');
+				$('#producao-bloco-calendario-producao'+id_bloco_calendario).css('display', 'block');
+				$('#producao-bloco-calendario-agendado'+id_bloco_calendario).css('display', 'none');
+				$('#producao-bloco-calendario-publicado'+id_bloco_calendario).css('display', 'none');
+			});
+
+		});
 
 		$('.muda-status-agendado').click(function(){
 			var id_bloco_calendario = $(this).attr('id');
@@ -601,8 +681,9 @@
 				url: '../Model/modelEditarAndamentoBlocoCalendario.php'
 			}).done(function(){
 				$('#producao-bloco-calendario-avulso'+id_bloco_calendario).css('display', 'none');
-				$('#producao-bloco-calendario-agendado'+id_bloco_calendario).css('display', 'block');
 				$('#producao-bloco-calendario-producao'+id_bloco_calendario).css('display', 'none');
+				$('#producao-bloco-calendario-agendado'+id_bloco_calendario).css('display', 'block');
+				$('#producao-bloco-calendario-publicado'+id_bloco_calendario).css('display', 'none');
 			});
 
 		});
@@ -615,11 +696,16 @@
 				url: '../Model/modelEditarAndamentoBlocoCalendario.php'
 			}).done(function(){
 				$('#producao-bloco-calendario-avulso'+id_bloco_calendario).css('display', 'none');
-				$('#producao-bloco-calendario-producao'+id_bloco_calendario).css('display', 'block');
+				$('#producao-bloco-calendario-producao'+id_bloco_calendario).css('display', 'none');
 				$('#producao-bloco-calendario-agendado'+id_bloco_calendario).css('display', 'none');
+				$('#producao-bloco-calendario-publicado'+id_bloco_calendario).css('display', 'block');
 			});
 
 		});
+
+		/*
+			PARTE PARA MUDAR O STATUS DO BLOCO FEITO COM AJAX
+		*/
 
 		function abrirMudaStatus(id){
 			$('#muda-status'+id).css('display', 'block');

@@ -2,6 +2,7 @@
 	//PÁGINA PARA VISUALIZAR AS TAREFAS REFERENTE AOS BLOCOS 
 	//CADASTRADOS EM CADA CALENDÁRIO
 	
+	//include_once("MVC/Controller/controllerAcesso.php");
 	include_once('../Controller/controllerTarefaAtrasada.php');
 	include_once('../Controller/controllerVerificarP.php');
 	include_once('../Controller/controllerFormatarData.php');
@@ -30,7 +31,15 @@
 	</section>
 
 	<section class="separador" id="tarefa-calendario">
-		<h2 style="margin-bottom: 10px">TAREFAS DE CALENDÁRIOS</h2>
+		<div style="display: flex;justify-content: space-between;">
+			<h2 style="margin-bottom: 10px">TAREFAS DE CALENDÁRIOS</h2>
+			<div class="filtro-tipo-tarefas">
+				<p>ORDENAR POR:</p>
+				<li><input type="radio" name="filtro-prazo" id="prazo-p1" value="calendario" onclick="filtrarPorP('p1')">PRAZO P1</li>
+				<li><input type="radio" name="filtro-prazo" id="prazo-p2" value="avulsas" onclick="filtrarPorP('p2')">PRAZO P2</li>
+			</div>
+		</div>	
+
 		<?php for($i = 0; $i < count($totalTarefasClientes); $i++){
 			if($totalTarefasClientes[$i]['planilha_calendario'] != 1){
 				$idCalendario = $totalTarefasClientes[$i]['id_calendario'];
@@ -62,7 +71,7 @@
 
 			<div class="contador-tarefas">
 				
-				<h2>Tarefas P1: <?php echo $contP1?> 
+				<h2>Prazo: <?php echo formatarData($totalTarefasClientes[$i]['p1_arte_calendario']); ?> - Tarefas P1: <?php echo $contP1?> 
 					
 					<?php 
 						$periodoBuscado = "AND numero_semana_bloco_calendario < 2";
@@ -84,7 +93,7 @@
 
 				<div style="z-index: 999"class="icones-acao" id="p1<?php echo $idCalendario?>">ENVIAR P1 PARA PRODUÇÃO</div>
 
-				<h2>Tarefas P2: <?php echo $contP2?> 
+				<h2>Prazo: <?php echo formatarData($totalTarefasClientes[$i]['p2_arte_calendario']); ?> - Tarefas P2: <?php echo $contP2?> 
 
 					<?php 
 						$periodoBuscado = "AND numero_semana_bloco_calendario > 1";
@@ -120,6 +129,7 @@
 				</tr>
 			<?php for($j = 0; $j < count($totalBlocoAtivo); $j++){?>
 				
+				<?php if($totalBlocoAtivo[$j]['status_tarefa'] != '4'){?>
 					<tr>
 						
 						<td><a href="viewPaginaCalendarioDescricao.php?id=<?php echo $totalBlocoAtivo[$j]['id_calendario']?>&idB=<?php echo $totalBlocoAtivo[$j]['id_bloco_calendario']?>"><i class="far fa-eye" style="margin-top: 2px; margin-right: 5px"></i><?php echo $totalBlocoAtivo[$j]['tema_bloco_calendario'];?></a></td>
@@ -133,14 +143,26 @@
 								//[$periodo == false -> P2]
 								if(verificarP($periodo) == true){
 									if(tarefaAtrasada($totalTarefasClientes[$i]['p1_copy_calendario']) == true){
-										echo formatarData($totalTarefasClientes[$i]['p1_copy_calendario'])." <i style='color: red' class='fas fa-exclamation-circle'></i></b>";
+
+										echo formatarData($totalTarefasClientes[$i]['p1_copy_calendario']);
+
+										if($totalBlocoAtivo[$j]['status_tarefa'] != 'finalizado'){
+											echo " <i style='color: red' class='fas fa-exclamation-circle'></i>";
+										}
+
 									}else{
 										echo formatarData($totalTarefasClientes[$i]['p1_copy_calendario']);
 									}
 									
 								}else{
 									if(tarefaAtrasada($totalTarefasClientes[$i]['p2_copy_calendario']) == true){
-										echo formatarData($totalTarefasClientes[$i]['p2_copy_calendario'])." <i style='color: red' class='fas fa-exclamation-circle'></i></b>";
+
+										echo formatarData($totalTarefasClientes[$i]['p2_copy_calendario']);
+
+										if($totalBlocoAtivo[$j]['status_tarefa'] != 'finalizado'){
+											echo " <i style='color: red' class='fas fa-exclamation-circle'></i>";
+										}
+
 									}else{
 										echo formatarData($totalTarefasClientes[$i]['p2_copy_calendario']);
 									}
@@ -156,13 +178,25 @@
 								//[$periodo == false -> P2]
 								if(verificarP($periodo) == true){
 									if(tarefaAtrasada($totalTarefasClientes[$i]['p1_arte_calendario']) == true){
-										echo formatarData($totalTarefasClientes[$i]['p1_arte_calendario'])." <i style='color: red' class='fas fa-exclamation-circle'></i></b>";
+
+										echo formatarData($totalTarefasClientes[$i]['p1_arte_calendario']);
+
+										if($totalBlocoAtivo[$j]['status_tarefa'] != 'finalizado'){
+											echo " <i style='color: red' class='fas fa-exclamation-circle'></i>";
+										}
+
 									}else{
 										echo formatarData($totalTarefasClientes[$i]['p1_arte_calendario']);
 									}
 								}else{
 									if(tarefaAtrasada($totalTarefasClientes[$i]['p2_arte_calendario']) == true){
-										echo formatarData($totalTarefasClientes[$i]['p2_arte_calendario'])." <i style='color: red' class='fas fa-exclamation-circle'></i></b>";
+
+										echo formatarData($totalTarefasClientes[$i]['p2_arte_calendario']);
+
+										if($totalBlocoAtivo[$j]['status_tarefa'] != 'finalizado'){
+											echo " <i style='color: red' class='fas fa-exclamation-circle'></i>";
+										}
+
 									}else{
 										echo formatarData($totalTarefasClientes[$i]['p2_arte_calendario']);
 									}
@@ -208,7 +242,7 @@
 						</td>			
 					</tr>
 				
-			
+				<?php } ?>
 			<?php }?><!-- FIM DO FOR DO 'j' -->
 			</table>
 		</div>
@@ -246,7 +280,8 @@
 					<th>Tarefa</th>
 					<th>Tipo</th>
 					<th>Descrição</th>
-					<th>Prazo</th>
+					<th>Prazo</th>					
+					<th>Prioridade</th>
 					<th>Status</th>
 					<th></th>
 				</tr>
@@ -254,7 +289,7 @@
 				for($j = 0; $j < count($totalSolicitacoes); $j++){
 
 			?>
-				
+				<?php if($totalSolicitacoes[$j]['status_solicitacao_cliente'] != 'finalizado'){?>
 					<tr>
 						
 						<td><i class="far fa-eye" style="margin-top: 2px; margin-right: 5px"></i><?php echo $totalSolicitacoes[$j]['titulo_solicitacao_cliente'];?></td>
@@ -264,7 +299,7 @@
 						</td>
 
 						<td>
-							<details style="cursor: pointer;"><summary>Descrição</summary><?php echo $totalSolicitacoes[$j]['descricao_solicitacao_cliente'];?></details>						
+							<details style="cursor: pointer;"><summary>Exibir</summary><?php echo $totalSolicitacoes[$j]['descricao_solicitacao_cliente'];?></details>						
 						</td>
 						
 						<td>
@@ -275,6 +310,16 @@
 									echo formatarData($totalSolicitacoes[$j]['prazo_solicitacao_cliente']);
 								}
 							?>							
+						</td>
+
+						<td>
+							<?php if($totalSolicitacoes[$j]['prioridade_solicitacao_cliente'] == 1){ echo 'ALTA <i class="fas fa-exclamation-triangle" style="color: red"></i>'?>
+
+							<?php }else if($totalSolicitacoes[$j]['prioridade_solicitacao_cliente'] == 2){ echo 'MÉDIA <i class="fas fa-exclamation-triangle" style="color:yellow"></i>'?>
+
+							<?php }else if($totalSolicitacoes[$j]['prioridade_solicitacao_cliente'] == 3){ echo 'BAIXA <i class="fas fa-exclamation-triangle" style="color: green"></i>'?>
+
+							<?php }?>
 						</td>
 
 						<td>
@@ -307,7 +352,7 @@
 						</td>		
 					</tr>
 				
-			
+				<?php }?>
 			<?php }?><!-- FIM DO FOR DO 'j' -->
 			</table>
 		</div>
@@ -383,6 +428,10 @@
 		$('#tipo-avulsas').change(function(){
 			$('#tarefa-avulsa').slideToggle();
 		});
+
+		function filtrarPorP(tipoP){
+			document.location = 'viewTarefasFiltradas.php?tipo='+tipoP;
+		}
 		
 	</script>
 

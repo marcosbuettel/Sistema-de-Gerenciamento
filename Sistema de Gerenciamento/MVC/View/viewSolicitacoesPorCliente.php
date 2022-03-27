@@ -131,8 +131,28 @@
 	//FUNÇÃO PARA FAZER SUMIR A MESMA CAIXA ESCRITO "REMOVER"
 	//QUANDO TIRAR O MOUSE DE CIMA DO ÍCONE DA "LIXEIRA"
 	$('.bloco-solicitacao i').mouseleave(function(){
-		$('.remover-solicitacao').css('display', 'none');	
+		$('.remover-solicitacao').css('display', 'none');
+		$('.editar-solicitacao').css('display', 'none');	
 	})
+
+	function exibirEditarSolicitacao(id){
+		$('#editar-solicitacao-'+id).css('display', 'block');
+	}
+
+	function editarSolicitacao(id){
+		//$('#janela-editar-solicitacao'+id).css('display', 'block');
+		$('#janela-editar-solicitacao'+id).slideToggle();
+		$('body').css('background-color', 'rgba(0,0,0,0.5)');
+		$('tr:nth-child(2n)').css('background-color', 'rgba(255,255,255,0.5)');
+	}
+
+	//FUNÇÃO PARA FECHAR A JANELA DE CADASTRO DO CALENDARIO
+	function fecharJanelaModal(){
+		$('.janela-modal-cadastro').css('display', 'none');	
+		$('body').css('background-color', '#F5F5F5');
+		$('tr:nth-child(2n)').css('background-color', 'white');
+	}
+
 
 
 	//FUNÇÕES PARA ARRASTAR E SOLTAR E TROCAR O STATUS DA TAREFA

@@ -272,6 +272,7 @@ input:focus{
 }
 
 .calendario-box-vazia{
+	position: relative;
 	color: white;
 	width: 14%;
 	margin: 5px 0;
@@ -356,6 +357,7 @@ input:focus{
 
 .muda-status-bloco{
 	position: relative;
+	z-index: 99999999
 }
 
 .muda-status-bloco i{
@@ -379,6 +381,42 @@ input:focus{
 	color: black;
 }
 
+.icone-duplicar-bloco{
+	position: absolute;
+	top: 10px;
+	color: black;
+	font-size: 20px;
+	left: 10px;
+}
+
+.botao-duplicar-bloco{
+	display: none;
+}
+
+.pulse {
+  animation: pulse 0.7s infinite;
+  animation-direction: alternate;
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
 /********************************************************************
 				 JANELA-CADASTRO-BLOCO-CALENDARIO
 ********************************************************************/
@@ -389,7 +427,7 @@ input:focus{
 .janela-cadastro-bloco-calendario{
 	width: 500px;
 	position: absolute;
-	z-index: 999;
+	z-index: 999999999;
 	background-color: white; 
 	display: none;
 	margin-left: auto;
@@ -453,7 +491,7 @@ input:focus{
 
 .escrever-novo-comentario{
 	background-color: white;
-	height:45px;
+	height:100px;
 	border-top: 1px solid black;
 	margin-bottom: 10px;
 	padding: 5px 10px;
@@ -475,7 +513,7 @@ input:focus{
 .escrever-novo-comentario textarea{
 	outline: none;
 	border-radius: 0!important;
-	max-height: 40px;
+	max-height: 90px;
 	background-color: rgba(0,0,0,0);
 	width: 400px;
 }
@@ -587,6 +625,25 @@ textarea{
 	font-size: 20px;
 	border-radius: 5px;
 	background-color: #F3E400!important;
+}
+
+.botao-voltar-descricao-bloco{
+	position: absolute;
+	color: black;
+	cursor: pointer;
+	background-color: white;
+	right: 10px;
+	display: flex;
+	top: 10px;
+	padding: 5px 10px;
+	border-radius: 20px;
+	font-weight: bold;
+}
+
+.botao-voltar-descricao-bloco i{
+	right: 5px!important;
+	top: 3px;
+	position: relative;
 }
 
 
@@ -802,6 +859,33 @@ textarea{
 .textarea-descricao textarea:focus{
 	border: none;
 	outline: none;
+}
+
+.textarea-descricao-editar{
+	display: none;
+	border: 1px solid black;
+}
+
+.text-botao-enviar{
+	display: none;
+}
+
+.botao-editar-descricao button{
+	background-color: black;
+	color: white;
+	padding: 5px 10px;
+	cursor: pointer;
+	border: none;
+	font-weight: bold;
+}
+
+.botao-editar-descricao button:hover{
+	transition: 0.3s;
+	background-color: white;
+	color: black;
+	-webkit-box-shadow: 0px 0px 5px 0px rgba(110,110,110,1);
+	-moz-box-shadow: 0px 0px 5px 0px rgba(110,110,110,1);
+	box-shadow: 0px 0px 5px 0px rgba(110,110,110,1);
 }
 
 .etapas-aprovacao-wrapper{
@@ -1159,20 +1243,20 @@ textarea{
 	padding: 5px;
 	margin: 20px auto;
 	width: 250px;
-	height: 170px;
+	min-height: 210px;
 	background-color: white;
 	-webkit-box-shadow: 0px 0px 11px -2px rgba(125,125,125,1);
 	-moz-box-shadow: 0px 0px 11px -2px rgba(125,125,125,1);
 	box-shadow: 0px 0px 11px -2px rgba(125,125,125,1);
-	cursor: pointer;
 }
 
 .bloco-solicitacao i{
 	color: #45A8E1;
 	font-size: 16px;
+	cursor: pointer;
 }
 
-.remover-solicitacao{
+.remover-solicitacao, .editar-solicitacao{
 	position: absolute;
 	background-color: #696969;
 	color: white;

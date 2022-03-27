@@ -5,7 +5,18 @@
 	include_once("../Model/modelBancoDeDados.php");
 	$idCalendario = $_GET['id'];
 	$_SESSION['idBlocoCalendario'] = $_GET['idB'];
+	//$idUsuarioLogado = $_SESSION['id-usuario-logado'] ;
+	$clienteDoUsuario = $_SESSION['nome-cliente'];
 	include_once("../Model/modelVerificarCalendario.php");	
+?>
+
+<?php 
+	$idCliente = $totalCalendario[0]['id_cliente'];
+	include("../Model/modelCalendarioCliente.php");
+
+	//CONDIÇÃO PARA VERIFICAR SE O USUARIO LOGADO É 'ADM', 'MASTER'
+	//OU É O CLIENTE QUE ESTÁ LIGADO A ESSE CALENDÁRIO
+	if($_SESSION['nome-cliente'] == $totalCalendarioCliente[0]['nome_cliente'] or $_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){
 ?>
 
 <!--<section class="header-calendario">
@@ -327,7 +338,8 @@
 
 	<!-- AQUI COMEÇA A JANELA COM O CONTEÚDO DO BLOCO -->
 	<div class="janela-descricao-bloco-calendario  janela-cadastro-bloco-calendario-wrapper">
-		<img src="../../images/cancel.png" onclick="fecharJanelaModal(<?php echo $idCalendario?>)" style="top: 8px; right: 10px; width: 30px">
+		<!--<img src="../../images/cancel.png" onclick="fecharJanelaModal(<?php echo $idCalendario?>)" style="top: 8px; right: 10px; width: 30px">-->
+		<div class="botao-voltar-descricao-bloco" onclick="fecharJanelaModal(<?php echo $idCalendario?>)"><i class="fas fa-arrow-circle-left"></i> VOLTAR</div>
 		<div class="header-janela-modal" style="border-radius: 0">
 			<h2>Descrição do bloco:</h2>
 		</div>
@@ -474,7 +486,8 @@
 						</div>
 
 						<div class="legenda-instagram">
-							<p><b><?php echo $totalCalendarioCliente[0]['nome_cliente'] ?></b> <?php echo $totalBlocoCalendario[0]['descricao_bloco_calendario']?></p>
+							<p><b><?php echo $totalCalendarioCliente[0]['nome_cliente'] ?></b> </p>
+							<textarea readonly><?php echo $totalBlocoCalendario[0]['descricao_bloco_calendario']?></textarea>	
 						</div>
 
 					</div>
@@ -513,69 +526,36 @@
 					</div>
 
 					<div class="textarea-descricao">
-						<textarea readonly><?php echo $totalBlocoCalendario[0]['descricao_bloco_calendario']?></textarea>	
+						<textarea readonly style="resize: vertical!important"><?php echo $totalBlocoCalendario[0]['descricao_bloco_calendario']?></textarea>
 					</div>
 
+					<?php 
+						$enviarIdBloco = $totalBlocoCalendario[0]['id_bloco_calendario'];
+						$enviarIdCalendario = $totalBlocoCalendario[0]['id_calendario'];
+					?>
+
+					<form method="POST" action="../Model/modelEditarDescricaoPaginaBloco.php?id=<?php echo $enviarIdCalendario ?>&idB=<?php echo $enviarIdBloco ?>">
+
+						<div class="textarea-descricao textarea-descricao-editar">
+							
+							<textarea name="descricao-bloco-editar" style="resize: vertical!important"><?php echo $totalBlocoCalendario[0]['descricao_bloco_calendario']?></textarea>
+							
+						</div>
+
+						<div class="botao-editar-descricao">
+							<button class="text-botao-enviar"><i class="fas fa-share-square"></i> ENVIAR</button>
+						</div>
+
+					</form>
 					<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
-					<div class="etapas-aprovacao-wrapper">
-						<div class="etapas-aprovacao">
-							<p>TEMA</p>							
-							<p style="position: relative;left: 15px">ARTE</p>
-							<p>LEGENDA</p>
-						</div>
-
-						<div class="etapas-aprovacao">
-							<?php if($totalBlocoCalendario[0]['tema_aprovado_bloco_calendario'] == 1){?>
-							<i class="fas fa-check-circle"></i>
-							<?php }else{?>
-							<i class="fas fa-circle" style="color: #E5E7EB"></i>
-							<?php }?>
-							<?php if($totalBlocoCalendario[0]['tema_aprovado_bloco_calendario'] == 1){?>
-							<div class="separador-etapas-aprovacao"></div>
-							<?php }else{?>
-							<div class="separador-etapas-aprovacao-vazio"></div>	
-							<?php }?>
-							<?php if($totalBlocoCalendario[0]['arte_aprovado_bloco_calendario'] == 1){?>
-							<i class="fas fa-check-circle"></i>
-							<?php }else{?>
-							<i class="fas fa-circle" style="color: #E5E7EB"></i>
-							<?php }?>
-							<?php if($totalBlocoCalendario[0]['arte_aprovado_bloco_calendario'] == 1){?>
-							<div class="separador-etapas-aprovacao-right"></div>
-							<?php }else{?>
-							<div class="separador-etapas-aprovacao-vazio-right"></div>	
-							<?php }?>
-							<?php if($totalBlocoCalendario[0]['legenda_aprovado_bloco_calendario'] == 1){?>
-							<i class="fas fa-check-circle"></i>
-							<?php }else{?>
-							<i class="fas fa-circle" style="color: #E5E7EB"></i>
-							<?php }?>
-						</div>
-
-						<div class="etapas-aprovacao">
-
-							<?php if($totalBlocoCalendario[0]['tema_aprovado_bloco_calendario'] == 0){?>
-							<a style="font-size: 10px">AGUARDANDO</a>
-							<?php }else{?>
-							<a style="background-color: #01BC00; cursor: auto">APROVADO</a>
-							<?php }?>	
-
-							<?php if($totalBlocoCalendario[0]['arte_aprovado_bloco_calendario'] == 0){?>
-							<a style="font-size: 10px">AGUARDANDO</a>
-							<?php }else{?>
-							<a style="background-color: #01BC00; cursor: auto">APROVADO</a>
-							<?php }?>
-
-							<?php if($totalBlocoCalendario[0]['legenda_aprovado_bloco_calendario'] == 0){?>
-							<a style="font-size: 10px">AGUARDANDO</a>
-							<?php }else{?>
-							<a style="background-color: #01BC00; cursor: auto">APROVADO</a>
-							<?php }?>
-						</div>
-					</div>
+						<div class="botao-editar-descricao" onclick="editarDescricaoBloco()">
+							<button class="text-botao-editar"><i class="fas fa-edit"></i> EDITAR</button>
+							
+						</div>					
 					<?php }?>
 
-					<?php if($_SESSION['tipo-usuario'] == 'leitor'){?>
+
+					<?php if($_SESSION['tipo-usuario'] == 'leitor' or $clienteDoUsuario == 'Iseven Play'){ ?>
 					
 					<div class="etapas-aprovacao-mobile" style="display: flex; justify-content: space-between;">
 						<div class="etapas-aprovacao-wrapper">
@@ -646,23 +626,84 @@
 					</div>
 
 					<div class="aprovar-sugestao">
-						<?php //if($totalBlocoCalendario[0]['aprovado_bloco_calendario'] == 1){?>
+						<?php //if($totalBlocoCalendario[0]['aprovado_bloco_calendario'] == 1){ ?>
 						<!--<div class="box-info-arte" style="width: 175px;">
 							<span>APROVADO</span>
 							<i class="far fa-check-circle"></i>
 						</div>-->
-						<?php //}else{?>
+						<?php //}else{ ?>
 
-						<!--<a onclick="aprovarBlocoCalendario()" href="../Model/modelAprovarArteBlocoCalendario.php?id=<?php //echo $idCalendario?>">
+						<!--<a onclick="aprovarBlocoCalendario()" href="../Model/modelAprovarArteBlocoCalendario.php?id=<?php //echo $idCalendario ?>">
 							<div class="box-info-arte" style="width: 135px;">
 								<span>APROVAR</span>
 							</div>
 						</a>-->
-						<?php// }?>
+						<?php // }?>
 
 						
 					</div>
+
+					<?php }else if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
+					<div class="etapas-aprovacao-wrapper">
+						<div class="etapas-aprovacao">
+							<p>TEMA</p>							
+							<p style="position: relative;left: 15px">ARTE</p>
+							<p>LEGENDA</p>
+						</div>
+
+						<div class="etapas-aprovacao">
+							<?php if($totalBlocoCalendario[0]['tema_aprovado_bloco_calendario'] == 1){?>
+							<i class="fas fa-check-circle"></i>
+							<?php }else{?>
+							<i class="fas fa-circle" style="color: #E5E7EB"></i>
+							<?php }?>
+							<?php if($totalBlocoCalendario[0]['tema_aprovado_bloco_calendario'] == 1){?>
+							<div class="separador-etapas-aprovacao"></div>
+							<?php }else{?>
+							<div class="separador-etapas-aprovacao-vazio"></div>	
+							<?php }?>
+							<?php if($totalBlocoCalendario[0]['arte_aprovado_bloco_calendario'] == 1){?>
+							<i class="fas fa-check-circle"></i>
+							<?php }else{?>
+							<i class="fas fa-circle" style="color: #E5E7EB"></i>
+							<?php }?>
+							<?php if($totalBlocoCalendario[0]['arte_aprovado_bloco_calendario'] == 1){?>
+							<div class="separador-etapas-aprovacao-right"></div>
+							<?php }else{?>
+							<div class="separador-etapas-aprovacao-vazio-right"></div>	
+							<?php }?>
+							<?php if($totalBlocoCalendario[0]['legenda_aprovado_bloco_calendario'] == 1){?>
+							<i class="fas fa-check-circle"></i>
+							<?php }else{?>
+							<i class="fas fa-circle" style="color: #E5E7EB"></i>
+							<?php }?>
+						</div>
+
+						<div class="etapas-aprovacao">
+
+							<?php if($totalBlocoCalendario[0]['tema_aprovado_bloco_calendario'] == 0){?>
+							<a style="font-size: 10px">AGUARDANDO</a>
+							<?php }else{?>
+							<a style="background-color: #01BC00; cursor: auto">APROVADO</a>
+							<?php }?>	
+
+							<?php if($totalBlocoCalendario[0]['arte_aprovado_bloco_calendario'] == 0){?>
+							<a style="font-size: 10px">AGUARDANDO</a>
+							<?php }else{?>
+							<a style="background-color: #01BC00; cursor: auto">APROVADO</a>
+							<?php }?>
+
+							<?php if($totalBlocoCalendario[0]['legenda_aprovado_bloco_calendario'] == 0){?>
+							<a style="font-size: 10px">AGUARDANDO</a>
+							<?php }else{?>
+							<a style="background-color: #01BC00; cursor: auto">APROVADO</a>
+							<?php }?>
+						</div>
+					</div>
+
 					<?php }?>
+
+					
 					
 					<div style="display: flex; justify-content: space-between;">
 						<h3>Comentários:</h3>
@@ -713,14 +754,14 @@
 								$hora = $horarioFormatado[1];
 							?>
 
-							<p><?php echo $dia."/".$mes."/".$ano. " " . $hora?></p>			
+							<p><?php echo $dia."/".$mes."/".$ano. " " . $hora ?></p>			
 
-							<?php //include('../Model/modelVerificarImagens.php');?>
+							<?php //include('../Model/modelVerificarImagens.php'); ?>
 
 							<!--<div class="imagens-comentario">
-								<?php //for($j = 0; $j < count($totalImagens); $j++){?>
-									<img onclick="aumentarImagem(<?php //echo $idComentario?>)" src="<?php //echo $totalImagens[$j]['nome_imagem_comentario'];?>">
-								<?php//}?>	
+								<?php //for($j = 0; $j < count($totalImagens); $j++){ ?>
+									<img onclick="aumentarImagem(<?php //echo $idComentario ?>)" src="<?php //echo $totalImagens[$j]['nome_imagem_comentario']; ?>">
+								<?php //} ?>	
 							</div>-->
 
 
@@ -731,29 +772,29 @@
 
 							<?php if($imgAtual != null){?>
 								<img src="<?php echo $imgAtual?>" onclick="aumentarImagem(<?php echo $i?>)">
-							<?php }*/?>
+							<?php }*/ ?>
 
 							<!-- ESSA DIV NÃO É MAIS USADA. SERVIA PARA AUMENTAR A IMAGEM CADASTRADA -->
-							<div class="imagem-aumentada" id="imgAumentada<?php echo $idComentario?>" style="display: none">
+							<!--<div class="imagem-aumentada" id="imgAumentada<?php //echo $idComentario ?>" style="display: none">
 								<div class="header-janela-modal">
 									<h2>Imagens do comentário:</h2>
 								</div>
 								<div class="fechar-imagem-aumentada">
-									<img src="../../images/cancel.png" onclick="fecharImagemAumentada(<?php echo $idComentario?>)">
+									<img src="../../images/cancel.png" onclick="fecharImagemAumentada(<?php //echo $idComentario ?>)">
 								</div>
 
 								<div class="imagens-por-comentario">
 									
-									<?php for($j = 0; $j < count($totalImagens); $j++){?>
-										<img onclick="aumentarImagem(<?php echo $i?>)" src="<?php echo $totalImagens[$j]['nome_imagem_comentario'];?>">
-									<?php }?>
+									<?php // for($j = 0; $j < count($totalImagens); $j++){ ?>
+										<img onclick="aumentarImagem(<?php //echo $i ?>)" src="<?php //echo $totalImagens[$j]['nome_imagem_comentario']; ?>">
+									<?php //} ?>
 									
 								</div>
 							</div>
 
-							<div class="separador-preto"></div>
+							<div class="separador-preto"></div>-->
 
-							<?php }?>
+							<?php } ?>
 						</div><!-- FIM COMENTARIO-BOX -->
 					</div><!-- FIM COMENTARIOS-BLOCO -->
 					<div class="escrever-novo-comentario">
@@ -803,14 +844,14 @@
 				<br><br>
 
 				<input type="file" name="fileToUpload[]" id="fileToUpload" multiple="multiple">-->
-				<?php //}else{?>
+				<?php //}else{ ?>
 
 				<!--<div class="aprovar-card">
 					<input type="radio" name="aprovacao" value="1"> Aprovado	
 					<input type="radio" name="aprovacao" value="2"> Reprovado
 				</div>-->
 
-				<?php }?>
+				<?php } ?>
 				<div class="info-cadastro-bloco-calendario" style="text-align: center">
 					<button>ADICIONAR</button>
 				</div>
@@ -821,6 +862,14 @@
 </section><!-- FIM DO CALENDARIO-WRAPPER -->
 
 <script type="text/javascript">
+
+	function editarDescricaoBloco(){
+		$('.textarea-descricao').css('display', 'none');
+		$('.textarea-descricao-editar').css('display', 'block');
+		$('.text-botao-editar').css('display', 'none');
+		$('.text-botao-enviar').css('display', 'block');
+				
+	}
 	
 	function cadastroBlocoCalendario(diaSemana, semanaBloco){
 		var diaSemana = diaSemana;
@@ -888,11 +937,8 @@
 
         if (result == true) { 
             doc = "../Model/modelExcluirBlocoCalendario.php?id="+idBlocoCalendario+"&idC="+idCalendario; 
-        } else { 
-            doc = "viewPaginaCalendario.php?id="+idCalendario; 
-        } 
-
-        window.location.replace(doc);
+            window.location.replace(doc);
+        }        
 	}
 
 	function novoComentario(){
@@ -986,5 +1032,11 @@
 	}
 
 </script>
+
+<?php }else{?>
+	<div class="separador">
+		<h2>Desculpe, página não encontrada.</h2>
+	</div>
+<?php }?><!-- FIM DO IF DO TIPO DE USUARIO LOGADO -->
 
 <?php include_once("../../body/footerCalendario.php");?>

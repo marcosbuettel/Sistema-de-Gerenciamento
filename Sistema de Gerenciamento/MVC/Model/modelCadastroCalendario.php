@@ -33,7 +33,7 @@
 
 	$cadastrarCalendario->execute();
 
-	include_once('modelCadastroProjeto.php');
+	//include_once('modelCadastroProjeto.php');
 
 	if($tipo == 0){
 		echo "<script>document.location='../View/viewCalendarios.php'</script>";	

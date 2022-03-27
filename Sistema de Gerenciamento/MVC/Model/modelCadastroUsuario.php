@@ -39,7 +39,8 @@
 	if(!empty($_FILES["fileToUpload2"]['name'])){
 		 
 		// For this, I would generate a unqiue random string for the key name. But you can do whatever.
-		$keyName = 'iSeven/' . basename($_FILES["fileToUpload2"]['name']);
+		$dataHoraAtual = date("Y-m-d H:i:s"); 
+		$keyName = 'iSeven/' .$dataHoraAtual. basename($_FILES["fileToUpload2"]['name']);
 		$pathInS3 = 'https://s3.us-east-1.amazonaws.com/' . $bucketName . '/' . $keyName;
 
 		// Add it to S3

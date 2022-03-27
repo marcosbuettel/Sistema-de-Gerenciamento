@@ -12,10 +12,11 @@
 	$totalSolicitacoesPorId = $verificaSolicitacoesPorId->fetchAlL(); 
 
 	$nomeCliente = $totalSolicitacoesPorId[0]['nome_cliente_solicitacao'];
+	$tituloTarefa = $totalSolicitacoesPorId[0]['titulo_solicitacao_cliente'];
 	$prazoTarefa = $totalSolicitacoesPorId[0]['prazo_solicitacao_cliente'];
 	$descTarefa = $totalSolicitacoesPorId[0]['descricao_solicitacao_cliente'];
 
-	$cadastrarTarefa = $pdo->prepare("INSERT INTO tarefa (nome_cliente_tarefa, prazo_tarefa, tipo_tarefa, descricao_tarefa) VALUES ('$nomeCliente', '$prazoTarefa', 'solicitacao', '$descTarefa')");
+	$cadastrarTarefa = $pdo->prepare("INSERT INTO tarefa (nome_cliente_tarefa, titulo_tarefa, prazo_tarefa, tipo_tarefa, descricao_tarefa) VALUES ('$nomeCliente', '$tituloTarefa','$prazoTarefa', 'solicitacao', '$descTarefa')");
 
 	$cadastrarTarefa->execute();
 

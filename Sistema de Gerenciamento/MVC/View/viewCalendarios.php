@@ -62,17 +62,50 @@
 					EXCLUIR O CALENDÁRIO APENAS PARA OS USUARIOS
 					'ADM' E 'MASTER' -->				
 
-				<td><b><a href="viewPaginaCalendario.php?id=<?php echo $idCalendario?>"><!--<i class="fas fa-calendar-check" style="font-size: 30px; margin-right: 10px; position: relative; top: 5px"></i>--><?php echo $totalCalendarios[$i]['mes_calendario']?></a></b>
+				<td style="min-width: 250px!important"><b><a href="viewPaginaCalendario.php?id=<?php echo $idCalendario?>"><!--<i class="fas fa-calendar-check" style="font-size: 30px; margin-right: 10px; position: relative; top: 5px"></i>--><?php echo $totalCalendarios[$i]['mes_calendario']?></a></b>
 					<?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>	
 				<div class="primeira-coluna-tabela">
 					<div class="botao-editaExclui-cliente">
+
+
+						<!-- 
+							SE 'ativo_calendario' == 1 
+							O CALENDÁRIO ESTÁ DESATIVADO
+							SENÃO
+							O CALENDÁRIO ESTÁ ATIVO
+						-->
+						<?php if($totalCalendarios[$i]['ativo_calendario'] == 1){ ?>
+
+						
+							<i id="botao-ativar-calendario<?php echo $idCalendario?>" onmouseover="exibeFuncao('ativar', <?php echo $idCalendario?>)" class="far fa-calendar-check botao-ativar-calendario" onclick="confirmarAtivar(<?php echo $idCalendario?>, 'noHide')"></i>
+							<div class="icones-acao" id="ativar<?php echo $idCalendario?>">ATIVAR</div>
+						
+							<i id="botao-desativar-calendario-hide<?php echo $idCalendario?>" onmouseover="exibeFuncao('desativar', <?php echo $idCalendario?>)" class="fas fa-calendar-check botao-desativar-calendario-hide" onclick="confirmarDesativar(<?php echo $idCalendario?>, 'hide')"></i>
+							<div class="icones-acao" id="desativar<?php echo $idCalendario?>">DESATIVAR</div>
+						
+								
+						<?php }else{?>
+
+							
+							<i id="botao-desativar-calendario<?php echo $idCalendario?>" onmouseover="exibeFuncao('desativar', <?php echo $idCalendario?>)" class="fas fa-calendar-check botao-desativar-calendario" onclick="confirmarDesativar(<?php echo $idCalendario?>, 'noHide')"></i>
+							<div class="icones-acao" id="desativar<?php echo $idCalendario?>">DESATIVAR</div>
+						
+							<i id="botao-ativar-calendario-hide<?php echo $idCalendario?>" onmouseover="exibeFuncao('ativar', <?php echo $idCalendario?>)" class="far fa-calendar-check botao-ativar-calendario-hide" onclick="confirmarAtivar(<?php echo $idCalendario?>, 'hide')"></i>
+							<div class="icones-acao" id="ativar<?php echo $idCalendario?>">ATIVAR</div>
+						
+								
+						<?php }?>
+
+
+
+
 						<a href="viewPaginaCalendario.php?id=<?php echo $idCalendario?>"><i onmouseover="exibeFuncao('view', <?php echo $idCalendario?>)" class="far fa-eye"></i>
 							<div class="icones-acao" id="view<?php echo $idCalendario?>">VISUALIZAR</div>
 						</a>
-
-						<a href="../Model/modelArquivarCalendario.php?id=<?php echo $idCalendario?>"><i onmouseover="exibeFuncao('arquivar', <?php echo $idCalendario?>)" class="far fa-folder-open"></i>
+						
+						<i onmouseover="exibeFuncao('arquivar', <?php echo $idCalendario?>)" class="fas fa-file-export" onclick="confirmarArquivar(<?php echo $idCalendario?>)"></i>
 							<div class="icones-acao" id="arquivar<?php echo $idCalendario?>">ARQUIVAR</div>
-						</a>
+						
 						<a href="viewEditarCalendario.php?id=<?php echo $idCalendario?>"><i onmouseover="exibeFuncao('editar', <?php echo $idCalendario?>)" class="far fa-edit"></i>
 							<div style="left: 50px;" class="icones-acao" id="editar<?php echo $idCalendario?>">EDITAR</div>
 						</a>
@@ -82,6 +115,18 @@
 						<!--<a href="#" onclick="confirmarExcluir(<?php echo $idCalendario?>)">Excluir</a>-->
 					</div>
 				</div>
+				<?php }?>
+				
+				<?php if($totalCalendarios[$i]['ativo_calendario'] == 1){ ?>
+				
+				<h4 style="margin-top: 10px" id="texto-desativado<?php echo $idCalendario?>">(DESATIVADO)</h4>
+				<h4 style="margin-top: 10px" class="texto-ativado-hide" id="texto-ativado-hide<?php echo $idCalendario?>">(ATIVADO)</h4>
+
+				<?php }else{?>
+
+				<h4 style="margin-top: 10px"id="texto-ativado<?php echo $idCalendario?>">(ATIVADO)</h4>
+				<h4 style="margin-top: 10px" class="texto-desativado-hide" id="texto-desativado-hide<?php echo $idCalendario?>">(DESATIVADO)</h4>
+
 				<?php }?>
 
 				</td>
@@ -211,7 +256,8 @@
 		
 		//FUNCÃO QUE FAZ ABRIR A JANELA DE CADASTRO DO CALENDÁRIO
 		function cadastroCalendario(){
-			$('.janela-modal-cadastro').css('display', 'block');
+			//$('.janela-modal-cadastro').css('display', 'block');
+			$('.janela-modal-cadastro').slideToggle();
 			$('body').css('background-color', 'rgba(0,0,0,0.5)');
 			$('tr:nth-child(2n)').css('background-color', 'rgba(255,255,255,0.5)');
 		}
@@ -239,6 +285,81 @@
 	        window.location.replace(doc);
 		}
 
+		function confirmarArquivar(idCalendario){
+			var idCalendario = idCalendario;
+	        var doc; 
+	        var result = confirm("Arquivar calendário?"); 
+
+	        if (result == true) { 
+	            doc = "../Model/modelArquivarCalendario.php?id="+idCalendario; 
+	            window.location.replace(doc);
+	        }	        
+		}
+
+		function confirmarAtivar(idCalendario, status){
+			var idCalendario = idCalendario;
+			var status = status;
+	        var doc; 
+	        var result = confirm("Ativar calendário?"); 
+
+	        if (result == true) { 
+				$.ajax({
+					method: 'post',
+					data:{'id': idCalendario},
+					url: '../Model/modelAtivarCalendario.php'
+				}).done(function(){
+					if(status == 'noHide'){
+						
+						$('#botao-ativar-calendario'+idCalendario).css('display', 'none');
+						$('#botao-desativar-calendario-hide'+idCalendario).slideToggle();
+
+						$('#texto-desativado'+idCalendario).css('display', 'none');
+						$('#texto-ativado-hide'+idCalendario).slideToggle();
+
+					}else{
+						
+						$('#botao-ativar-calendario-hide'+idCalendario).css('display', 'none');
+						$('#botao-desativar-calendario'+idCalendario).slideToggle();
+
+						$('#texto-desativado-hide'+idCalendario).css('display', 'none');
+						$('#texto-ativado'+idCalendario).slideToggle();
+					}
+				});
+	        }	        
+		}
+
+		function confirmarDesativar(idCalendario, status){
+			var idCalendario = idCalendario;
+			var status = status;
+	        var doc; 
+	        var result = confirm("Desativar calendário?"); 
+
+	        if (result == true) { 
+				$.ajax({
+					method: 'post',
+					data:{'id': idCalendario},
+					url: '../Model/modelDesativarCalendario.php'
+				}).done(function(){
+					if(status == 'noHide'){
+						
+						$('#botao-desativar-calendario'+idCalendario).css('display', 'none');
+						$('#botao-ativar-calendario-hide'+idCalendario).slideToggle();
+
+						$('#texto-ativado'+idCalendario).css('display', 'none');
+						$('#texto-desativado-hide'+idCalendario).slideToggle();			
+
+					}else{
+						
+						$('#botao-desativar-calendario-hide'+idCalendario).css('display', 'none');
+						$('#botao-ativar-calendario'+idCalendario).slideToggle();
+
+						$('#texto-ativado-hide'+idCalendario).css('display', 'none');
+						$('#texto-desativado'+idCalendario).slideToggle();									
+					}
+				});
+	        }	        
+		}
+
 		function exibeFuncao(funcao, id){
 			if(funcao == 'view'){
 				$('#view'+id).css('display', 'block');
@@ -246,6 +367,10 @@
 				$('#arquivar'+id).css('display', 'block');
 			}else if(funcao == 'editar'){
 				$('#editar'+id).css('display', 'block');
+			}else if(funcao == 'ativar'){
+				$('#ativar'+id).css('display', 'block');
+			}else if(funcao == 'desativar'){
+				$('#desativar'+id).css('display', 'block');
 			}else{
 				$('#excluir'+id).css('display', 'block');
 			}	

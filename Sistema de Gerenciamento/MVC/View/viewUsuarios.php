@@ -130,7 +130,8 @@
 	<script type="text/javascript">
 		
 		function cadastroCliente(){
-			$('.janela-modal-cadastro').css('display', 'block');
+			//$('.janela-modal-cadastro').css('display', 'block');
+			$('.janela-modal-cadastro').slideToggle();
 			$('body').css('background-color', 'rgba(0,0,0,0.5)');
 			$('tr:nth-child(2n)').css('background-color', 'rgba(255,255,255,0.5)');
 		}
@@ -162,11 +163,8 @@
 
 	        if (result == true) { 
 	            doc = "../Model/modelExcluirUsuario.php?id="+idUsuario; 
-	        } else { 
-	            doc = "viewUsuarios.php"; 
-	        } 
-
-	        window.location.replace(doc);
+	            window.location.replace(doc);
+	        }	        
 		}
 
 		function exibeFuncao(funcao, id){

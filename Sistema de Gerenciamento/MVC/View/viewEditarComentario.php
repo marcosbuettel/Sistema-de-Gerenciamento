@@ -813,12 +813,9 @@
         var result = confirm("Confirmar exclusão do bloco?"); 
 
         if (result == true) { 
-            doc = "../Model/modelExcluirBlocoCalendario.php?id="+idBlocoCalendario+"&idC="+idCalendario; 
-        } else { 
-            doc = "viewPaginaCalendario.php?id="+idCalendario; 
-        } 
-
-        window.location.replace(doc);
+            doc = "../Model/modelExcluirBlocoCalendario.php?id="+idBlocoCalendario+"&idC="+idCalendario;
+            window.location.replace(doc); 
+        }        
 	}
 
 	function novoComentario(){

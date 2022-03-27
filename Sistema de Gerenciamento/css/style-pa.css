@@ -9,13 +9,13 @@
     background-color: #F4F4F4;
 }
 
-details summary::-webkit-details-marker {
+/*details summary::-webkit-details-marker {
   display:none;
 }
 
 details > summary:first-of-type {
     list-style-type: none;
-}
+}*/
 
 ::-webkit-scrollbar {
     width: 6px;
@@ -80,6 +80,11 @@ li{
 
 .nav-left i{
 	cursor: pointer;
+	font-size: 14px;
+}
+
+.nav-left a{
+	font-size: 14px;
 }
 
 .nav-left-mobile{
@@ -101,6 +106,11 @@ li{
 .nav-left-mini i{
 	color: white;
 	cursor: pointer;
+	font-size: 14px;
+}
+
+.nav-left i,.nav-left-mini i{
+	margin-bottom: 15px!important;
 }
 
 .info-ico-menu{
@@ -179,7 +189,33 @@ li{
 	display: none;
 	right: 0;
 	overflow-y: scroll;
-	top: 40px;
+	top: 20px;
+}
+
+.marcar-notificacao-lidas{
+	padding: 5px;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	margin-bottom: -5px;
+}
+
+.marcar-notificacao-lidas button{
+	background-color: black;
+	font-size: 10px;
+	color: white;
+	cursor: pointer;
+	border: none;
+	padding: 5px;
+}
+
+.marcar-notificacao-lidas button:hover{
+	transition: 0.3s;
+	color: black;
+	background-color: white;
+	-webkit-box-shadow: 0px 0px 5px 0px rgba(191,191,191,1);
+	-moz-box-shadow: 0px 0px 5px 0px rgba(191,191,191,1);
+	box-shadow: 0px 0px 5px 0px rgba(191,191,191,1);
 }
 
 .notificacao{
@@ -266,6 +302,36 @@ li{
 }
 
 /********************************************************************
+						DASHBOARD ADM
+********************************************************************/
+
+.dashboard-adm{
+	display: flex;
+	flex-wrap: wrap; 
+	width: 80%;
+	align-items: center;
+}
+
+.dashboard-box{
+	background-color: #2D323E;
+	color: white;
+	font-size: 26px;
+	text-align: center;
+	padding: 35px 45px;
+	margin-bottom: 70px;
+	margin-right: 40px;
+}
+
+.dashboard-box:hover{
+	transition: 0.4s;
+	background-color: white;
+	color: black;
+	-webkit-box-shadow: 0px 0px 5px 0px rgba(158,158,158,1);
+	-moz-box-shadow: 0px 0px 5px 0px rgba(158,158,158,1);
+	box-shadow: 0px 0px 5px 0px rgba(158,158,158,1);
+}
+
+/********************************************************************
 						OPCOES-CLIENTES-WRAPPER
 ********************************************************************/
 .opcoes-clientes-wrapper{
@@ -324,7 +390,6 @@ li{
 
 .calendario-box-wrapper{
 	overflow-x: scroll;
-	max-height: 400px;
 }
 
 .calendarios-visao-clientes{
@@ -408,6 +473,28 @@ li{
 	background-color: #01BC00;
 }
 
+.seguir-cliente{
+	width: 40px;
+	height: 20px;
+	border-radius: 20px;
+	background-color: #ACACAC;
+	margin: 0 auto;
+	cursor: pointer;
+	position: relative;
+}
+
+.seguir-cliente-circulo{
+	width: 20px;
+	height: 20px;
+	border-radius: 100%;
+	background-color: white;
+	position: absolute;
+}
+
+.seguir-cliente-circulo-direita{
+	left: 20px;	
+}
+
 /********************************************************************
 						PÁGINA GERENCIAR CLIENTES
 ********************************************************************/
@@ -453,6 +540,10 @@ tr:nth-child(2n){
 .botao-editaExclui-cliente2 i{
 	margin: 0 10px;
 	cursor: pointer;
+}
+
+.texto-desativado-hide, .texto-ativado-hide, .botao-ativar-calendario-hide, .botao-desativar-calendario-hide{
+	display: none;
 }
 
 .primeira-coluna-tabela{
@@ -831,7 +922,7 @@ tr:nth-child(2n){
 	background-color: white;
 }
 
-.excluir-tarefa{
+.excluir-tarefa, .finaliza-tarefa, .editar-tarefa{
 	display: none;
 	position: absolute;
 	background-color: black;
@@ -840,6 +931,14 @@ tr:nth-child(2n){
 	z-index: 99999;
 	padding: 5px;
 	font-weight: bold;
+}
+
+.icone-finalizada{
+	display: none;
+}
+
+.botao-tarefa-finalizada{
+	display: none;
 }
 
 .finalizar-tarefa, .ver-tarefa{
@@ -858,6 +957,12 @@ tr:nth-child(2n){
 .janela-modal-tarefas{
 	font-size: 16px;
 	width: 68%!important;
+}
+
+.janela-modal-tarefas-quadro{
+	position: fixed;
+	overflow-y: scroll;
+	max-height: 500px;
 }
 
 .lista-tarefas{
@@ -887,6 +992,44 @@ tr:nth-child(2n){
 .icone-finalizado{
 	display: none;
 }
+
+.acoes-tarefa i{
+	margin: 0 5px;
+	cursor: pointer;
+}
+
+.popup-acao{
+	background-color: black;
+	color: white;
+	padding: 5px;
+	font-size: 12px;
+	font-weight: bold;
+	position: absolute;
+	display: none;
+}
+
+.enviar-link-imagem-tarefa{
+	margin-top: 5px;
+	display: none;
+}
+
+.enviar-link-imagem-tarefa button{
+	padding: 5px 10px;
+	border: none;
+	background-color:#202020;
+	color: white;
+	margin-top: 5px;
+	cursor: pointer;
+}
+
+.imagem-arte-tarefa{
+	position: absolute;
+	width: 80%;
+	z-index: 999999;
+	display: none;
+}
+
+
 
 /********************************************************************
 						FORM CALENDARIO
@@ -973,7 +1116,7 @@ select{
 	border-radius: 50%; 
 	width: 30px; 
 	top: 25px;
-	right: -15px; 
+	right: -5px; 
 	position: relative;
 	width: 30px;
 	height: 30px;
@@ -998,6 +1141,10 @@ select{
 .janela-modal-geral img{
 	width: 20px;
 	top: 12px;
+}
+
+.janela-modal-geral{
+	position: fixed;
 }
 
 .campos-formulario-container{
@@ -1156,6 +1303,7 @@ select{
 	color: white;
 	background-color: black;
 	border: none;
+	margin-right: 10px;
 }
 
 .projetos-box-header button:hover{
@@ -1167,6 +1315,270 @@ select{
 	transition: 0.3s
 }
 
+.pesquisar-tarefas-projetos-wrapper{
+	display: flex;
+	flex-direction: row-reverse;
+	padding: 20px;
+}
+
+.pesquisar-tarefas-projetos{
+}
+
+.pesquisar-tarefas-projetos input{
+	width: 300px;
+	height: 30px;
+	background-color: #F5F5F5;
+	font-size: 20px;
+	padding: 5px;
+	border-right: none;
+	outline: none;
+}
+
+.pesquisar-tarefas-projetos i{
+	cursor: pointer;
+	color: white;
+	font-size: 16px;
+	
+}
+
+.pesquisar-tarefas-projetos form{
+	display: flex;
+}
+
+.lupa-pesquisa{
+	height: 30px;
+	width: 50px;
+	text-align: center;
+	background-color: black;
+	padding-top: 5px;
+}
+
+.lupa-pesquisa button{
+	background-color: black;
+	border: none;
+}
+
+
+/********************************************************************
+						QUADRO DE PROJETOS
+********************************************************************/
+
+.opcoes-quadro-projetos-wrapper{
+	display: flex;	
+	flex-wrap: wrap;
+}
+
+.opcoes-quadro-projetos{
+	margin: 30px 20px;
+	background-color: #2D323E;
+	color: white;
+	padding: 20px 10px;
+	font-size: 16px;
+	text-align: center;
+	cursor: pointer;
+	max-width: 300px;
+	min-height: 150px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.opcoes-quadro-projetos i{
+	font-size: 30px;
+	margin-bottom: 15px;
+}
+
+.opcoes-quadro-projetos:hover{
+	background-color: white;
+	color: black;
+	transition: 0.4s;
+	-webkit-box-shadow: 0px 0px 5px 0px rgba(191,191,191,1);
+	-moz-box-shadow: 0px 0px 5px 0px rgba(191,191,191,1);
+	box-shadow: 0px 0px 5px 0px rgba(191,191,191,1);	
+}
+
+
+/********************************************************************
+							FLUXOS
+********************************************************************/
+
+.fluxo-wrapper{
+	display: flex;
+	width: 100%;
+	min-height: 500px;
+	max-height: 500px;
+	overflow-x: scroll;
+}
+
+.coluna-fluxo{
+	text-align: center;
+	min-width: 300px;
+	padding: 10px 0;
+	background-color: white;
+	margin: 0 10px;
+}
+
+.bloco-coluna-fluxo{
+	background-color: #EBECF0;
+	border-radius: 3px;
+	padding: 20px 10px;
+	margin: 10px auto;
+	max-width: 80%; 
+	font-size: 12px;
+	position: relative;
+}
+
+.bloco-coluna-fluxo i{
+	font-size: 30px;
+	margin-top: 5px;
+	cursor: pointer;
+}
+
+.opcoes-coluna{
+	background-color: black;
+	color: white;
+	width: 150px;
+	left: 50%;
+	margin-left: -75px;
+	position: absolute;
+	z-index: 999999;
+	display: none;
+}
+
+.opcoes-coluna p{
+	padding: 10px 5px;
+	cursor: pointer;
+}
+
+.opcoes-coluna p:hover{
+	background-color: white;
+	color: black;
+}
+
+/********************************************************************
+						TAREFA SELECIONADA
+********************************************************************/
+
+.tarefa-selecionada{
+	display: flex;
+	justify-content: space-between;
+}
+
+.info-tarefa-selecionada{
+	width: 55%;
+	padding: 20px;
+	background-color: white;
+}
+
+.info-tarefa-selecionada p{
+	font-size: 22px;
+	line-height: 35px;
+}
+
+.info-tarefa-selecionada a{
+	background-color: black;
+	color: white;
+	padding: 10px 20px;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+	border: none;
+}
+
+.info-tarefa-selecionada a:hover{
+	background-color: #F5F5F5;
+	color: black;
+}
+
+.comentarios-tarefa-selecionada{
+	width: 40%;
+	background-color: white;
+}
+
+.comentarios-tarefa-box{
+	padding: 10px;
+	position: relative;
+	height: 400px;
+}
+
+.comentarios-tarefa{
+	overflow-y: scroll;
+	max-height: 290px; 
+}
+
+.enviar-comentario-tarefa{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-top: 1px solid black;
+	position: absolute;
+	width: 100%;
+	left:0;
+	bottom: 10px;
+	padding: 10px;
+}
+
+.enviar-comentario-tarefa textarea{
+	width: 94%;
+	height: 60px;
+	padding: 5px;
+	font-size: 16px;
+}
+
+.enviar-comentario-tarefa i{
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.enviar-comentario-tarefa button{
+	background-color: white;
+	border: none;
+}
+
+.textarea-comentario-tarefa{	
+	display: none;
+}
+
+.textarea-comentario-tarefa textarea{
+	width: 100%;
+	font-size: 16px;
+	min-height: 100px;
+}
+
+
+/********************************************************************
+						AGENDAMENTO
+********************************************************************/
+
+.escolher-dia-agendamento-wrapper{	
+	position: absolute;
+	z-index:9999999;
+	top: 140px;
+	display: none;
+}
+
+.escolher-dia-agendamento{
+	display: flex;
+	background-color: black;
+	color: white;
+}
+
+.escolher-dia-agendamento p{
+	padding: 10px;
+	font-size: 10px;
+	margin: 0 !important;
+}
+
+.escolher-dia-agendamento p:hover{
+	background-color: white;
+	color: black;
+	cursor: pointer;
+}
+
+.editar-agendamento{
+	display: none;
+}
 
 /********************************************************************
 						MEDIA QUERIES
@@ -1177,6 +1589,43 @@ select{
 }
 
 @media screen and (max-width: 900px){
+	.nav-superior{
+		display: flex;
+		height: auto;
+		position: static;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding-bottom: 20px;
+	}
+
+	.nav-superior > img{
+		padding: 20px;
+		width: 150px;
+	}
+
+	.img-sino{
+		display: flex;
+		color: white;
+		position: relative;
+		right: 0;
+		top: 0;
+	}
+
+	.img-sino p{
+		font-size: 16px;
+		padding-top: 10px;
+		padding-right: 40px;
+	}
+
+	.img-sino img{
+		width: 40px;
+		height: auto;
+		text-align: center;
+		margin-bottom: auto;
+		cursor: pointer;
+	}
+		
 	.nav-left{
 		display: none;
 	}
@@ -1185,9 +1634,20 @@ select{
 		display: none;
 	}
 
+	.sub-header-mobile{
+		background-color: #474D5B!important;
+	}
+
 	.nav-left-mobile{
 		display: block;
+		margin-top: 60px;		
+	}
 
+	.barra-notificacao{
+		width: 270px;
+		display: none;
+		z-index: 9999999999;
+		right: -20px;
 	}
 
 	.nav-painel ul{
@@ -1268,6 +1728,15 @@ select{
 
 	.campos-formulario input{
 		margin: 5px 0;
+	}
+
+	.dashboard-adm{
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.opcoes-clientes-wrapper{
+		justify-content: center;
 	}
 }
 

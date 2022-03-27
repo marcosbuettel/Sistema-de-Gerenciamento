@@ -90,9 +90,23 @@
 							<div>
 								<label>Tipo:</label><br>
 								<select name="tipo-usuario">
-									<option value="master">Master</option>
-									<option value="adm">ADM</option>
-									<option value="leitor">Leitor</option>
+									<!-- 
+										AJUSTAR ESSA PARTE PRA PEGAR O TIPO
+										DIRETO DO BANCO QUANDO FOR EDITAR
+									-->
+									<option value="master" <?php if($totalUsuarioEscolhido[0]['tipo_usuario'] == 'master'){?>
+										selected
+									<?php }?>>Master</option>
+									
+									<option value="adm" <?php if($totalUsuarioEscolhido[0]['tipo_usuario'] == 'adm'){?>
+										selected
+									<?php }?>									
+									>ADM</option>
+									
+									<option value="leitor" <?php if($totalUsuarioEscolhido[0]['tipo_usuario'] == 'leitor'){?>
+										selected
+									<?php }?>
+									>Leitor</option>
 								</select>
 							</div>
 
@@ -104,7 +118,15 @@
 										include_once("../Model/modelClientes.php");
 										for($i = 0; $i < count($totalClientes); $i++){
 									?>
-									<option value="<?php echo $totalClientes[$i]['nome_cliente']?>"><?php echo $totalClientes[$i]['nome_cliente']?></option>
+									<option 
+									<?php if($totalUsuarioEscolhido[0]['nome_cliente'] == $totalClientes[$i]['nome_cliente']){?>
+
+									selected
+
+									<?php }?>	
+									value="<?php echo $totalClientes[$i]['nome_cliente']?>"><?php echo $totalClientes[$i]['nome_cliente']?>
+										
+									</option>
 									<?php }?>
 								</select>
 							</div>
@@ -138,11 +160,8 @@
 
 	        if (result == true) { 
 	            doc = "../Model/modelExcluirUsuario.php?id="+idUsuario; 
-	        } else { 
-	            doc = "viewUsuarios.php"; 
-	        } 
-
-	        window.location.replace(doc);
+	            window.location.replace(doc);
+	        }	        
 		}
 
 	</script>

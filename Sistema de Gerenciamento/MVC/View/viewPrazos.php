@@ -156,12 +156,9 @@
 	        var result = confirm("Confirmar exclusão do calendário?"); 
 
 	        if (result == true) { 
-	            doc = "../Model/modelExcluirCalendario.php?id="+idCalendario; 
-	        } else { 
-	            doc = "viewCalendarios.php"; 
-	        } 
-
-	        window.location.replace(doc);
+	            doc = "../Model/modelExcluirCalendario.php?id="+idCalendario;
+	            window.location.replace(doc); 
+	        }	        
 		}
 
 		function exibeFuncao(funcao, id){

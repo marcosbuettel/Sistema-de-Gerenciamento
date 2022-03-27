@@ -10,7 +10,7 @@
 	A VISÃO DESSA PÁGINA-->
 <?php if($_SESSION['tipo-usuario'] == 'adm' or $_SESSION['tipo-usuario'] == 'master'){?>
 
-	<section class="nav-painel separador">
+	<!--<section class="nav-painel separador">
 
 		<ul>		
 			<li>Clientes</li>
@@ -21,27 +21,104 @@
 	<section class="clientes-box-wrapper separador">
 		
 		<?php 
-			include_once("../Model/modelClientes.php");
-			for ($i=0; $i < count($totalClientes) ; $i++) { 
+			/*include_once("../Model/modelClientes.php");
+			for ($i=0; $i < count($totalClientes) ; $i++) { */
 		?>
 
 		<div class="clientes-box">
 			
-			<h2><?php echo $totalClientes[$i]['nome_cliente']?></h2><br>
+			<h2><?php //echo $totalClientes[$i]['nome_cliente']?></h2><br>
 
 			<?php 
-				$idCliente = $totalClientes[$i]['id_cliente'];
-				include("../Model/modelClienteCalendario.php");
+				//$idCliente = $totalClientes[$i]['id_cliente'];
+				//include("../Model/modelClienteCalendario.php");
 			?>
 
 			<div class="info-clientes-calendarios">
-				<p>Calendários: <?php echo count($totalClienteCalendario)?></p>
+				<p>Calendários: <?php //echo count($totalClienteCalendario)?></p>
 			</div>
 		</div>
 
-		<?php } ?><!-- FIM DO FOR CLIENTES-BOX -->
+		<?php //} ?>--><!-- FIM DO FOR CLIENTES-BOX -->
 
-	</section><!-- FIM DO CLIENTES-BOX-WRAPPER -->
+	<!--</section>--><!-- FIM DO CLIENTES-BOX-WRAPPER -->
+
+	<section class="dashboard-adm separador">
+
+		<?php if($_SESSION['tipo-usuario'] == 'master'){ ?>
+
+		<a href="viewUsuarios.php">
+			<div class="dashboard-box">
+				<i class="fas fa-user-lock"></i>
+				<p>Usuários</p>
+			</div>
+		</a>
+
+		<?php } ?>
+
+		<a href="viewClientes.php">
+			<div class="dashboard-box">
+				<i class="fas fa-user-cog"></i>
+				<p>Clientes</p>
+			</div>
+		</a>
+
+		<!--<a href="viewPrazos.php">
+			<div class="dashboard-box">
+				<i class="fas fa-history"></i>
+				<p>Prazos</p>
+			</div>
+		</a>-->
+
+		<a href="viewCalendarios.php">
+			<div class="dashboard-box">
+				<i class="far fa-calendar-alt"></i>
+				<p>Calendários</p>
+			</div>
+		</a>
+
+		<a href="viewProjetos.php">
+			<div class="dashboard-box">
+				<i class="fas fa-paste"></i>
+				<p>Projetos</p>
+			</div>
+		</a>
+
+		<a href="viewQuadroProjetos.php">
+			<div class="dashboard-box">
+				<i class="fa-solid fa-diagram-project"></i>
+				<p>Fluxos</p>
+			</div>
+		</a>
+
+		<a href="viewSolicitacoes.php">
+			<div class="dashboard-box">
+				<i class="fas fa-clipboard-list"></i>
+				<p>Solicitações</p>
+			</div>
+		</a>
+
+		<a href="viewAgenda.php">
+			<div class="dashboard-box">
+				<i class="fa-solid fa-calendar-day"></i>
+				<p>Agenda</p>
+			</div>
+		</a>
+
+		<a href="viewTarefas.php">
+			<div class="dashboard-box">
+				<i class="fas fa-tasks"></i>
+				<p>Tarefas</p>
+			</div>
+		</a>
+
+		<a href="viewQuadroTarefas.php">
+			<div class="dashboard-box">
+				<i class="fas fa-chalkboard-teacher"></i>
+				<p>Quadro</p>
+			</div>
+		</a>
+	</section>
 
 <?php }else{?>
 	<section class="nav-painel">
@@ -89,9 +166,6 @@
 			</div>
 		</a>
 
-
-
-
 	<!--<section class="clientes-box-wrapper separador">
 		<h2>teste</h2>
 		<?php 
@@ -124,7 +198,7 @@
 	</section><!-- FIM DO CLIENTES-BOX-WRAPPER -->
 
 	<!-- JANELA PARA CADASTRO DE UMA SOLICITAÇÃO PELO CLIENTE -->
-	<div class="janela-modal-cadastro">
+	<div class="janela-modal-cadastro modal-cadastro-solicitacao janela-modal-geral">
 		<img src="../../images/cancel.png" onclick="fecharJanelaModal()">
 		<div class="header-janela-modal">
 			<h2>Cadastrar solicitação:</h2>
@@ -133,26 +207,42 @@
 		<div class="info-cadastro-cliente">
 			<form method="POST" action="../Model/modelCadastroSolicitacao.php" enctype="multipart/form-data">
 
-				<div class="form-box-cliente">
+				<div class="campos-formulario-container">
 					
-					<label>Título:</label><br>
-					<input type="text" placeholder="Título" name="titulo-solicitacao" style="text-align: center; width: 200px"><br>					
+					<div class="campos-formulario">
+						<div>					
+							<label>Título:</label>
+							<input type="text" placeholder="Título" name="titulo-solicitacao" style="text-align: center; width: 200px"><br>		
+						</div>
+					</div>			
 
-					<label>Tipo:</label><br><br>
+					<div class="campos-formulario">
+						<div>	
+							<label>Tipo:</label>
 
-					<div class="opcoes-solicitacao-cliente">
-						<input type="radio" value="web" name="tipo-solicitacao" required>WEB
-						<input type="radio" value="midiasocial" name="tipo-solicitacao" required>Midia Social
-						<input type="radio" value="outdoor" name="tipo-solicitacao" required>Outdoor
-						<input type="radio" value="folder" name="tipo-solicitacao" required>Folder
-						<input type="radio" value="outro" name="tipo-solicitacao" required>Outro
+							<div class="opcoes-solicitacao-cliente">
+								<input type="radio" value="web" name="tipo-solicitacao" required>WEB
+								<input type="radio" value="midiasocial" name="tipo-solicitacao" required>Midia Social
+								<input type="radio" value="outdoor" name="tipo-solicitacao" required>Outdoor
+								<input type="radio" value="folder" name="tipo-solicitacao" required>Folder
+								<input type="radio" value="outro" name="tipo-solicitacao" required>Outro
+							</div>
+						</div>
 					</div>
 
-					<label>Descrição:</label><br><br>
-					<textarea name="descricao-solicitacao"></textarea>
-					<br><br>
-					<label>Informe o prazo:</label><br>
-					<input type="date" name="prazo-solicitacao">
+					<div class="campos-formulario">
+						
+							<label>Descrição:</label>
+							<textarea name="descricao-solicitacao"></textarea>
+						
+					</div>
+
+					<div class="campos-formulario">
+						<div>
+							<label>Informe o prazo:</label>
+							<input type="date" name="prazo-solicitacao">
+						</div>
+					</div>
 				</div>
 
 				<br>
@@ -163,7 +253,10 @@
 					<input type="file" name="fileToUpload[]" id="fileToUpload" multiple="multiple">
 				</div>				
 				
-				<button>CONFIRMAR</button>
+				<br>
+				<div class="campos-formulario-botao">
+					<button>CONFIRMAR</button>
+				</div><br>
 			</form>
 		</div>
 	</div>
@@ -174,7 +267,8 @@
 <script type="text/javascript">
 		
 	function cadastroSolicitacao(){
-		$('.janela-modal-cadastro').css('display', 'block');
+		//$('.janela-modal-cadastro').css('display', 'block');
+		$('.janela-modal-cadastro').slideToggle();
 		$('body').css('background-color', 'rgba(0,0,0,0.5)');
 		$('tr:nth-child(2n)').css('background-color', 'rgba(255,255,255,0.5)');
 	}
@@ -193,11 +287,8 @@
 
         if (result == true) { 
             doc = "../Model/modelExcluirCalendario.php?id="+idCalendario; 
-        } else { 
-            doc = "viewCalendarios.php"; 
-        } 
-
-        window.location.replace(doc);
+            window.location.replace(doc);
+        }        
 	}
 
 	function enviarFoto(){

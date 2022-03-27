@@ -2,7 +2,9 @@
 	include_once("body/head.php");
 	include_once("MVC/Model/modelBancoDeDados.php");
 	include_once("MVC/Model/modelLogin.php");
+	//include_once("MVC/Controller/controllerAcesso.php");
 	
+
 	//CONDIÇÃO PARA VERIFICAR SE O USUÁRIO JÁ ESTAVA 
 	//LOGADO NO SISTEMA
 	//SE TIVER LOGADO, NÃO VAI PRECISAR FAZER LOGIN NOVAMENTE
@@ -22,11 +24,13 @@
 
 <section class="login-sistema">
 
-	<img src="images/logoiSeven3.png">
+	<img src="images/LOGO2.png" style="width:200px">
+
+	<br><br><br><br>
 
 	<div class="login-sistema-box">
-		<h2>Logar no sistema</h2>
-		<br><br>
+		<!--<h2>Logar no sistema</h2>
+		<br><br>-->
 		<form method="POST">
 			<label>Usuário</label>
 			<div class="input">

@@ -19,6 +19,12 @@
 		<link href="css/style.css" rel="stylesheet">
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
  		<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+ 		<style type="text/css">
+ 			body{
+ 				background-color: #2D323E;
+ 			}
+ 		</style>
 	</head>
 
 	<body>		

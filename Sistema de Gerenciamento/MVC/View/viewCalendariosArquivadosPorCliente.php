@@ -87,11 +87,8 @@
 
         if (result == true) { 
             doc = "../Model/modelExcluirCalendario.php?id="+idCalendario; 
-        } else { 
-            doc = "viewCalendarios.php"; 
-        } 
-
-        window.location.replace(doc);
+            window.location.replace(doc);
+        }        
 	}
 </script>
 

@@ -26,6 +26,7 @@
 			<tr>
 				<th>Nome do Cliente</th>
 				<th>Calendários Cadastrados</th>
+				<th>Seguindo</th>
 			</tr>
 			<?php 
 				include_once("../Model/modelClientes.php");
@@ -51,6 +52,26 @@
 				?>
 
 				<td><?php echo count($totalClienteCalendario)?></td>
+
+				<td>
+
+					<?php include('../Model/modelVerificaUsuarioCliente.php');?>
+					<?php if(count($totalUsuarioCliente) == 0){?>
+					<div class="seguir-cliente seguir-cliente-esquerda" id="seguir-cliente-esquerda<?php echo $idCliente?>" onclick="moverCirculoEsquerda(<?php echo $idCliente?>)">
+					<div class="seguir-cliente-circulo" id="seguir-cliente-circulo-esquerda<?php echo $idCliente?>"></div>
+					</div>
+					<?php }else if($totalUsuarioCliente[0]['status_usuario_cliente'] == 0){?>
+					<div class="seguir-cliente seguir-cliente-esquerda" id="seguir-cliente-esquerda<?php echo $idCliente?>" onclick="moverCirculoEsquerda(<?php echo $idCliente?>)">
+						<div class="seguir-cliente-circulo" id="seguir-cliente-circulo-esquerda<?php echo $idCliente?>"></div>
+					</div>
+					<?php }else{?>
+
+					<div class="seguir-cliente seguir-cliente-direita" style="background-color: #737373" id="seguir-cliente-direita<?php echo $idCliente?>" onclick="moverCirculoDireita(<?php echo $idCliente?>)">
+						<div class="seguir-cliente-circulo seguir-cliente-circulo-direita" id="seguir-cliente-circulo-direita<?php echo $idCliente?>"></div>
+					</div>
+
+					<?php }?>
+				</td>
 			</tr>
 		
 			<?php } ?><!-- FIM DO FOR CLIENTES-BOX -->
@@ -85,7 +106,8 @@
 	<script type="text/javascript">
 		
 		function cadastroCliente(){
-			$('.janela-modal-cadastro').css('display', 'block');
+			//$('.janela-modal-cadastro').css('display', 'block');
+			$('.janela-modal-cadastro').slideToggle();
 			$('body').css('background-color', 'rgba(0,0,0,0.5)');
 			$('tr:nth-child(2n)').css('background-color', 'rgba(255,255,255,0.5)');
 		}
@@ -116,12 +138,9 @@
 	        var result = confirm("Confirmar exclusão do cliente?"); 
 
 	        if (result == true) { 
-	            doc = "../Model/modelExcluirCliente.php?id="+idCliente; 
-	        } else { 
-	            doc = "viewClientes.php"; 
-	        } 
-
-	        window.location.replace(doc);
+	            doc = "../Model/modelExcluirCliente.php?id="+idCliente;
+	            window.location.replace(doc); 
+	        }	        
 		}
 
 		function exibeFuncao(funcao, id){
@@ -139,6 +158,27 @@
 		$('.botao-editaExclui-cliente2 i').mouseleave(function(){
 			$('.icones-acao').css('display', 'none');
 		});
+
+		
+		function moverCirculoEsquerda(id){
+			$( "#seguir-cliente-circulo-esquerda"+id).animate({				
+			    left: "20px"
+			}, 100, function(){
+			 	$('#seguir-cliente-esquerda'+id).css('background-color', '#737373');
+
+			 	document.location = '../Model/modelSeguirCliente.php?idC='+id;
+			});
+		}
+
+		function moverCirculoDireita(id){
+			$( "#seguir-cliente-circulo-direita"+id).animate({				
+			    left: "0"
+			}, 100, function(){
+			 	$('#seguir-cliente-direita'+id).css('background-color', '#ACACAC');
+
+			 	document.location = '../Model/modelSeguirCliente.php?idC='+id;
+			});
+		}
 
 	</script>
 

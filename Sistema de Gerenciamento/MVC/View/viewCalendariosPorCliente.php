@@ -27,6 +27,8 @@
 			if($totalClienteCalendario[$i]['arquivado_calendario'] != 1){
 	?>
 
+	<?php if($totalClienteCalendario[$i]['ativo_calendario'] != 1){?>
+
 	<a href="viewPaginaCalendario.php?id=<?php echo $idCalendario?>">
 		<div class="calendario-cliente-info">
 			<img src="../../images/ico-calendar5.png">
@@ -36,6 +38,9 @@
 			</div>
 		</div>
 	</a>
+
+	<?php }?>
+
 	<?php }}?>
 	
 
@@ -62,12 +67,9 @@
         var result = confirm("Confirmar exclusão do calendário?"); 
 
         if (result == true) { 
-            doc = "../Model/modelExcluirCalendario.php?id="+idCalendario; 
-        } else { 
-            doc = "viewCalendarios.php"; 
-        } 
-
-        window.location.replace(doc);
+            doc = "../Model/modelExcluirCalendario.php?id="+idCalendario;
+            window.location.replace(doc); 
+        }        
 	}
 </script>
 

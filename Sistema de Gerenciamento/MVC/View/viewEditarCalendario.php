@@ -116,9 +116,27 @@
 										include_once("../Model/modelClientes.php");
 										$dataAtual = date('d/m/Y');
 
+										$idCliente = $totalCalendario[0]['id_cliente'];
+										include("../Model/modelCalendarioCliente.php");			
+
 										for ($i=0; $i < count($totalClientes); $i++){						
 									?>
-									<option value="<?php echo $totalClientes[$i]['nome_cliente']?>"><?php echo $totalClientes[$i]['nome_cliente']?></option>
+									<!-- 
+										COLOCAR AQUI A FUNÇÃO PRA PEGAR O QUE ESTÁ NO BANCO
+										TERMINAR ESSA PARTE
+										CRIAR UMA BUSCA PRA PEGAR O NOME DO CLIENTE
+									-->
+									<option 
+									<?php if($totalCalendarioCliente[0]['nome_cliente'] == $totalClientes[$i]['nome_cliente']){
+
+									?> 
+									selected
+									<?php }?>
+									>
+
+									<?php echo $totalClientes[$i]['nome_cliente']?>
+										
+									</option>
 									<?php }?><!-- FIM DO FOR DO SELECT -->
 								</select>
 							</div>
@@ -156,7 +174,7 @@
 
 							<div>
 								<label>Usuário:</label>
-								<input type="text" name="usuario-calendario" readonly value="<?php echo strtoupper($_SESSION['login'])?>" style="text-align: center; width: 250px">
+								<input type="text" name="usuario-calendario" readonly value="<?php echo $totalCalendario[0]['usuario_calendario']?>" style="text-align: center; width: 250px">
 							</div>
 						</div>
 

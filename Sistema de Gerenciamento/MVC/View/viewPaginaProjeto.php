@@ -168,11 +168,8 @@
 
 	        if (result == true) { 
 	            doc = "../Model/modelExcluirBlocoCalendario.php?id="+idBlocoCalendario+"&idC="+idCalendario; 
-	        } else { 
-	            doc = "viewPaginaCalendario.php?id="+idCalendario; 
-	        } 
-
-	        window.location.replace(doc);
+	            window.location.replace(doc);
+	        }	        
 		}
 
 	</script>

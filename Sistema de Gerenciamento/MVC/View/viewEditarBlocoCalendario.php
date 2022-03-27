@@ -237,7 +237,7 @@
 							
 						</p>
 						<?php if($totalBlocosCalendarios[0]['producao_bloco_calendario'] != null){?>
-						<p><?php echo $totalBlocosCalendarios[0]['producao_bloco_calendario']?></p>
+						
 					<?php }?>
 
 						<div style="background-color: white; color: black; border-radius: 10px;  padding: 0 5px; padding-top: 5px;"><b>Prazo:</b> 
@@ -246,6 +246,13 @@
 					</div>
 					<br>
 					<?php if($totalCalendario[0]['planilha_calendario'] == null){?>
+
+					<?php if($totalBlocosCalendarios[0]['producao_bloco_calendario'] != null){?>
+					<div class="producao-bloco-calendario" id="producao-bloco-calendario-avulso<?php echo $totalBlocosCalendarios[0]['id_bloco_calendario']?>">				
+						<p><?php echo strtoupper($totalBlocosCalendarios[0]['producao_bloco_calendario'])?></p>
+					</div>
+					<?php }?>	
+
 					<p style="font-weight: bold; font-size: 14px">Tema:</p>
 					<p style="font-size: 14px; margin-top: 5px"><?php echo $totalBlocosCalendarios[0]['tema_bloco_calendario']?></p>
 					<div class="separador"></div>
@@ -497,12 +504,9 @@
 	        var result = confirm("Confirmar exclusão do bloco?"); 
 
 	        if (result == true) { 
-	            doc = "../Model/modelExcluirBlocoCalendario.php?id="+idBlocoCalendario+"&idC="+idCalendario; 
-	        } else { 
-	            doc = "viewPaginaCalendario.php?id="+idCalendario; 
-	        } 
-
-	        window.location.replace(doc);
+	            doc = "../Model/modelExcluirBlocoCalendario.php?id="+idBlocoCalendario+"&idC="+idCalendario;
+	            window.location.replace(doc); 
+	        }	        
 		}
 
 	</script>

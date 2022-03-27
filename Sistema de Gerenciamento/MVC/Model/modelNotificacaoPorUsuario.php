@@ -10,7 +10,7 @@
 
 	//POR EXEMPLO: SE UM CLIENTE FEZ UMA AÇÃO, COMO APROVAR UMA ARTE
 	//É GERADA UMA NOTIFICAÇÃO, ENTÃO OS USUÁRIOS DO TIPO "ADM" E "MASTER"
-	//PRECISAM VER ESSA NOTIFICAÇÃO. LOGO PRECISA SER GEREADA UMA SOLICITAÇÃO
+	//PRECISAM VER ESSA NOTIFICAÇÃO. LOGO PRECISA SER GERADA UMA SOLICITAÇÃO
 	//PARA CADA USUÁRIO SEPARADAMENTE
 	
 	include_once("modelNotificacao.php");
@@ -22,6 +22,7 @@
 	include_once("modelNotificacaoCliente.php");
 
 	$nomeClienteNotificacao = $totalClientesNotificacao[0]['nome_cliente'];
+
 
 	$idNotificacao = $totalNotificacao[0]['id_notificacao'];
 
@@ -40,12 +41,35 @@
 		//SALVA PRA ELE
 		//SE ELE FOR O CLIENTE QUE TEM LIGAÇÃO COM A AÇÃO FEITA
 		//A NOTIFICAÇÃO TAMBÉM SERÁ SALVA PRA ELE
+
+		
+
 		if($idUsuarioNotificacao != $idUsuario){
-			if($tipoUsuario == 'master' or $tipoUsuario == 'adm' or $nomeCliente == $nomeClienteNotificacao){
+			if($tipoUsuario == 'cliente' and $nomeCliente == $nomeClienteNotificacao){
+
 				$cadastrarNotificacaoPorUsuario = $pdo->prepare("INSERT INTO notificacao_usuario (id_notificacao, id_usuario, vista_notificacao, data_notificacao) VALUES ('$idNotificacao', '$idUsuario', '1','$dataAtual')");
 				$cadastrarNotificacaoPorUsuario->execute();
+			}else if($tipoUsuario == 'adm' or $tipoUsuario == 'master'){
+				/*****************************************************************/
+				//PARTE PARA VERIFICAR SE O USUARIO ESTÁ SEGUINDO O CLIENTE ANTES
+				//DA NOTIFICAÇÃO SER CADASTRADA PRA ELE
+
+				$verificarUsuarioCliente = $pdo->prepare("SELECT * FROM usuario_cliente WHERE id_usuario = '$idUsuario' AND id_cliente = '$idNotificacaoCliente'");	
+				
+				$verificarUsuarioCliente->execute();
+				$totalUsuarioCliente = $verificarUsuarioCliente->fetchAlL(); 
+				/*****************************************************************/
+				
+				if(isset($totalUsuarioCliente[0]['status_usuario_cliente'])){
+					if($totalUsuarioCliente[0]['status_usuario_cliente'] == 1){
+						$cadastrarNotificacaoPorUsuario = $pdo->prepare("INSERT INTO notificacao_usuario (id_notificacao, id_usuario, vista_notificacao, data_notificacao) VALUES ('$idNotificacao', '$idUsuario', '1','$dataAtual')");
+							$cadastrarNotificacaoPorUsuario->execute();
+					}
+				}
 			}
 		}
+
+		
 	}
 
 ?>

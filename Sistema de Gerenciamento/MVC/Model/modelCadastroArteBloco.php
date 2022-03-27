@@ -56,7 +56,8 @@
 		
 		for($i=0; $i<count($_FILES["fileToUpload"]['name']); $i++) {   
 			// For this, I would generate a unqiue random string for the key name. But you can do whatever.
-			$keyName = 'iSeven/' . basename($_FILES["fileToUpload"]['name'][$i]);
+			$dataHoraAtual = date("Y-m-d H:i:s"); 
+			$keyName = 'iSeven/' .$dataHoraAtual. basename($_FILES["fileToUpload"]['name'][$i]);
 			$pathInS3 = 'https://s3.us-east-1.amazonaws.com/' . $bucketName . '/' . $keyName;
 
 			// Add it to S3
@@ -80,8 +81,11 @@
 			}
 
 			$linkImg = 'https://s3.us-east-1.amazonaws.com/' . $bucketName . '/' . $keyName;
+			$linkFormatadoImg = basename($_FILES["fileToUpload"]['name'][$i]);
 
-			$cadastrarImagem = $pdo->prepare("INSERT INTO imagens_bloco (id_bloco_calendario , nome_imagem_bloco ) VALUES ('$idBlocoCalendario','$linkImg')");
+			/*$cadastrarImagem = $pdo->prepare("INSERT INTO imagens_bloco (id_bloco_calendario , nome_imagem_bloco ) VALUES ('$idBlocoCalendario','$linkImg')");*/
+
+			$cadastrarImagem = $pdo->prepare("INSERT INTO imagens_bloco (id_bloco_calendario , nome_imagem_bloco, nome_formatado_imagem_bloco ) VALUES ('$idBlocoCalendario','$linkImg', '$linkFormatadoImg')");
 
 			$cadastrarImagem->execute();
 		}

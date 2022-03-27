@@ -115,6 +115,18 @@
 
 					<div class="campos-formulario">
 						<div>
+							<label>Prioridade:</label>
+
+							<div class="opcoes-solicitacao-cliente">
+								<input type="radio" value="3" name="prioridade-solicitacao" required>Baixa
+								<input type="radio" value="2" name="prioridade-solicitacao" required>Média
+								<input type="radio" value="1" name="prioridade-solicitacao" required>Alta
+							</div>
+						</div>
+					</div>
+
+					<div class="campos-formulario">
+						<div>
 							<label>Descrição:</label>
 							<textarea name="descricao-solicitacao"></textarea>
 						</div>
@@ -143,7 +155,8 @@
 	<script type="text/javascript">
 		
 	function cadastroSolicitacao(){
-		$('.janela-modal-cadastro').css('display', 'block');
+		//$('.janela-modal-cadastro').css('display', 'block');
+		$('.janela-modal-cadastro').slideToggle();
 		$('body').css('background-color', 'rgba(0,0,0,0.5)');
 		$('tr:nth-child(2n)').css('background-color', 'rgba(255,255,255,0.5)');
 	}
